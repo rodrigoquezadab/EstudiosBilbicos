@@ -210,6 +210,185 @@
       </div>
     </div>
 
+    <!-- VISOR DE ESTUDIO INTEGRADO EN PÁGINA (Sin Modales que tapen el menú) -->
+    <section class="book-study-panel" id="book-study-panel" style="display: none;" aria-live="polite">
+      <!-- Barra superior de aviso de libro abierto -->
+      <div class="study-panel-topbar">
+        <div class="study-panel-indicator">
+          <span class="pulse-indicator"></span>
+          <span>Ficha de Estudio Activa • Selección Actual</span>
+        </div>
+        <button class="study-panel-close-btn" id="study-panel-close-btn" aria-label="Cerrar ficha de estudio">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+          <span>Cerrar Estudio</span>
+        </button>
+      </div>
+
+      <!-- Encabezado del Estudio -->
+      <div class="study-panel-header">
+        <div class="study-panel-title-wrapper">
+          <span class="book-abbr-badge" id="study-book-abbr">Gn</span>
+          <div>
+            <h3 class="study-panel-title sacred-title" id="study-book-title">Génesis</h3>
+            <p class="book-subname" id="study-book-subname">Bereshit / Génesis</p>
+          </div>
+        </div>
+
+        <div class="study-panel-tags" id="study-panel-tags">
+          <!-- Inserta badges dinámicos -->
+        </div>
+      </div>
+
+      <!-- Pestañas de Navegación del Estudio -->
+      <nav class="study-tabs-nav" role="tablist">
+        <button class="study-tab-btn active" data-study-tab="tab-specs">Ficha Canónica</button>
+        <button class="study-tab-btn" data-study-tab="tab-history">Contexto & Autor</button>
+        <button class="study-tab-btn" data-study-tab="tab-theology">Teología BJ</button>
+        <button class="study-tab-btn" data-study-tab="tab-passage">Pasaje Clave</button>
+      </nav>
+
+      <!-- Contenido de las Pestañas -->
+      <div class="study-panel-body">
+        <!-- Pestaña 1: Ficha Canónica -->
+        <div class="study-tab-pane active" id="pane-study-tab-specs">
+          <div class="info-card-block">
+            <div class="info-block-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              <span>Estructura y Clasificación Canónica</span>
+            </div>
+            <div class="info-grid-specs">
+              <div class="spec-item">
+                <span class="spec-label">Testamento</span>
+                <span class="spec-value" id="study-testament">-</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Categoría Principal</span>
+                <span class="spec-value" id="study-category">-</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Subcategoría Específica</span>
+                <span class="spec-value" id="study-subcategory">-</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Cantidad de Capítulos</span>
+                <span class="spec-value" id="study-chapters">-</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Estatus Canónico</span>
+                <span class="spec-value" id="study-canon-status">-</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Género Literario</span>
+                <span class="spec-value" id="study-genre">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card-block">
+            <div class="info-block-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
+              <span>Síntesis Temática General</span>
+            </div>
+            <p class="prose-text" id="study-summary">-</p>
+          </div>
+
+          <div class="info-card-block" id="study-themes-block">
+            <div class="info-block-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/></svg>
+              <span>Palabras y Temas Clave</span>
+            </div>
+            <div class="filter-pills" id="study-themes-list">
+              <!-- Lista de temas clave -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Pestaña 2: Contexto Histórico & Autor -->
+        <div class="study-tab-pane" id="pane-study-tab-history">
+          <div class="info-card-block">
+            <div class="info-block-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>Autoría y Tradición Redactora</span>
+            </div>
+            <p class="prose-text" id="study-author">-</p>
+          </div>
+
+          <div class="info-card-block">
+            <div class="info-block-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Época y Coordenadas de Redacción</span>
+            </div>
+            <div class="info-grid-specs">
+              <div class="spec-item">
+                <span class="spec-label">Fecha / Datación Aproximada</span>
+                <span class="spec-value" id="study-date">-</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Lugar de Composición</span>
+                <span class="spec-value" id="study-location">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card-block">
+            <div class="info-block-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span>Destinatarios Originales de la Obra</span>
+            </div>
+            <p class="prose-text" id="study-audience">-</p>
+          </div>
+        </div>
+
+        <!-- Pestaña 3: Teología de la Biblia de Jerusalén -->
+        <div class="study-tab-pane" id="pane-study-tab-theology">
+          <div class="info-card-block">
+            <div class="info-block-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              <span>Aporte Exegético y Teológico (BJ)</span>
+            </div>
+            <p class="prose-text" id="study-historical-note">-</p>
+          </div>
+        </div>
+
+        <!-- Pestaña 4: Pasaje Clave Emblema -->
+        <div class="study-tab-pane" id="pane-study-tab-passage">
+          <div class="info-card-block">
+            <div class="info-block-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span>Texto Representativo del Libro</span>
+            </div>
+
+            <div class="sacred-quote-box">
+              <span class="quote-reference" id="study-quote-reference">Gn 1, 1</span>
+              <p class="quote-verse" id="study-quote-text">«En el principio creó Dios los cielos y la tierra.»</p>
+            </div>
+
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.85rem;">
+              <em>Texto según la traducción canónica de la Biblia de Jerusalén en lengua española.</em>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pie del Panel de Estudio con Acciones -->
+      <div class="study-panel-footer">
+        <button id="study-copy-btn" class="btn-secondary" title="Copiar resumen y datos de este libro al portapapeles">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+          </svg>
+          <span>Copiar Ficha de Estudio</span>
+        </button>
+
+        <button id="study-close-bottom-btn" class="btn-primary">
+          <span>Cerrar y Volver a la Lista</span>
+        </button>
+      </div>
+    </section>
+
     <!-- Grilla Dinámica de Libros Bíblicos -->
     <div class="books-grid" id="books-grid" aria-live="polite">
       <!-- Se inyecta dinámicamente con app.js -->
@@ -304,180 +483,6 @@
       </div>
     </section>
   </main>
-
-  <!-- Modal Interactivo de Ficha Exegética Detallada -->
-  <div class="modal-backdrop" id="book-modal" role="dialog" aria-modal="true" aria-labelledby="modal-book-title" tabindex="-1">
-    <div class="modal-container">
-      <!-- Encabezado del Modal -->
-      <div class="modal-header">
-        <div class="modal-header-top">
-          <div class="modal-title-group">
-            <span class="book-abbr-badge" id="modal-book-abbr">Gn</span>
-            <div>
-              <h3 class="modal-title sacred-title" id="modal-book-title">Génesis</h3>
-              <p class="book-subname" id="modal-book-subname">Bereshit / Génesis</p>
-            </div>
-          </div>
-          <button class="modal-close-btn" id="modal-close-btn" aria-label="Cerrar ficha">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
-        </div>
-
-        <div class="modal-tags" id="modal-tags">
-          <!-- Inserta badges dinámicos -->
-        </div>
-      </div>
-
-      <!-- Barra de Pestañas del Modal -->
-      <nav class="modal-tabs-nav" role="tablist">
-        <button class="modal-tab-btn active" data-modal-tab="tab-specs">Ficha Canónica</button>
-        <button class="modal-tab-btn" data-modal-tab="tab-history">Contexto & Autor</button>
-        <button class="modal-tab-btn" data-modal-tab="tab-theology">Teología BJ</button>
-        <button class="modal-tab-btn" data-modal-tab="tab-passage">Pasaje Clave</button>
-      </nav>
-
-      <!-- Contenido del Modal -->
-      <div class="modal-body">
-        <!-- Pestaña 1: Ficha Canónica -->
-        <div class="modal-tab-pane active" id="pane-tab-specs">
-          <div class="info-card-block">
-            <div class="info-block-header">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-              <span>Estructura y Clasificación Canónica</span>
-            </div>
-            <div class="info-grid-specs">
-              <div class="spec-item">
-                <span class="spec-label">Testamento</span>
-                <span class="spec-value" id="modal-testament">-</span>
-              </div>
-              <div class="spec-item">
-                <span class="spec-label">Categoría Principal</span>
-                <span class="spec-value" id="modal-category">-</span>
-              </div>
-              <div class="spec-item">
-                <span class="spec-label">Subcategoría Específica</span>
-                <span class="spec-value" id="modal-subcategory">-</span>
-              </div>
-              <div class="spec-item">
-                <span class="spec-label">Cantidad de Capítulos</span>
-                <span class="spec-value" id="modal-chapters">-</span>
-              </div>
-              <div class="spec-item">
-                <span class="spec-label">Estatus Canónico</span>
-                <span class="spec-value" id="modal-canon-status">-</span>
-              </div>
-              <div class="spec-item">
-                <span class="spec-label">Género Literario</span>
-                <span class="spec-value" id="modal-genre">-</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="info-card-block">
-            <div class="info-block-header">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
-              <span>Síntesis Temática General</span>
-            </div>
-            <p class="prose-text" id="modal-summary">-</p>
-          </div>
-
-          <div class="info-card-block" id="modal-themes-block">
-            <div class="info-block-header">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/></svg>
-              <span>Palabras y Temas Clave</span>
-            </div>
-            <div class="filter-pills" id="modal-themes-list">
-              <!-- Lista de temas clave -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Pestaña 2: Contexto Histórico & Autor -->
-        <div class="modal-tab-pane" id="pane-tab-history">
-          <div class="info-card-block">
-            <div class="info-block-header">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span>Autoría y Tradición Redactora</span>
-            </div>
-            <p class="prose-text" id="modal-author">-</p>
-          </div>
-
-          <div class="info-card-block">
-            <div class="info-block-header">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span>Época y Coordenadas de Redacción</span>
-            </div>
-            <div class="info-grid-specs">
-              <div class="spec-item">
-                <span class="spec-label">Fecha / Datación Aproximada</span>
-                <span class="spec-value" id="modal-date">-</span>
-              </div>
-              <div class="spec-item">
-                <span class="spec-label">Lugar de Composición</span>
-                <span class="spec-value" id="modal-location">-</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="info-card-block">
-            <div class="info-block-header">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              <span>Destinatarios Originales de la Obra</span>
-            </div>
-            <p class="prose-text" id="modal-audience">-</p>
-          </div>
-        </div>
-
-        <!-- Pestaña 3: Teología de la Biblia de Jerusalén -->
-        <div class="modal-tab-pane" id="pane-tab-theology">
-          <div class="info-card-block">
-            <div class="info-block-header">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-              <span>Aporte Exegético y Teológico (BJ)</span>
-            </div>
-            <p class="prose-text" id="modal-historical-note">-</p>
-          </div>
-        </div>
-
-        <!-- Pestaña 4: Pasaje Clave Emblema -->
-        <div class="modal-tab-pane" id="pane-tab-passage">
-          <div class="info-card-block">
-            <div class="info-block-header">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              <span>Texto Representativo del Libro</span>
-            </div>
-
-            <div class="sacred-quote-box">
-              <span class="quote-reference" id="modal-quote-reference">Gn 1, 1</span>
-              <p class="quote-verse" id="modal-quote-text">«En el principio creó Dios los cielos y la tierra.»</p>
-            </div>
-
-            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.85rem;">
-              <em>Texto según la traducción canónica de la Biblia de Jerusalén en lengua española.</em>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pie del Modal con Acciones -->
-      <div class="modal-footer">
-        <button id="modal-copy-btn" class="btn-secondary" title="Copiar resumen y datos de este libro al portapapeles">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
-            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
-          </svg>
-          <span>Copiar Ficha</span>
-        </button>
-
-        <button id="modal-close-bottom-btn" class="btn-primary">
-          <span>Cerrar</span>
-        </button>
-      </div>
-    </div>
-  </div>
 
   <!-- Notificación Toast Flotante -->
   <div class="toast-notification" id="toast-message" role="status" aria-live="polite">

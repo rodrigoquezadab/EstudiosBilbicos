@@ -1,6 +1,6 @@
 /**
  * PORTAL DE ESTUDIOS BÍBLICOS - BIBLIA DE JERUSALÉN
- * Lógica Reactiva, Búsqueda, Filtrado Avanzado y Modal de Exégesis
+ * Lógica Reactiva, Búsqueda, Filtrado Avanzado y Panel de Estudio Integrado (Sin Modales)
  */
 
 import { BIBLE_BOOKS, BIBLE_STATS } from './data/bibleData.js';
@@ -15,7 +15,7 @@ const state = {
   onlyMajorProphets: false,
   onlyMinorProphets: false,
   sortBy: 'canonical',
-  currentModalBook: null
+  currentStudyBook: null
 };
 
 // Referencias DOM
@@ -44,34 +44,34 @@ const elements = {
   filterMinorProphets: document.getElementById('filter-minor-prophets'),
   chipMinorWrapper: document.getElementById('chip-minor-wrapper'),
 
-  // Modal
-  bookModal: document.getElementById('book-modal'),
-  modalCloseBtn: document.getElementById('modal-close-btn'),
-  modalCloseBottomBtn: document.getElementById('modal-close-bottom-btn'),
-  modalCopyBtn: document.getElementById('modal-copy-btn'),
-  modalTabBtns: document.querySelectorAll('.modal-tab-btn'),
-  modalTabPanes: document.querySelectorAll('.modal-tab-pane'),
+  // Panel de Estudio Integrado (Reemplaza al modal)
+  bookStudyPanel: document.getElementById('book-study-panel'),
+  studyCloseBtn: document.getElementById('study-panel-close-btn'),
+  studyCloseBottomBtn: document.getElementById('study-close-bottom-btn'),
+  studyCopyBtn: document.getElementById('study-copy-btn'),
+  studyTabBtns: document.querySelectorAll('.study-tab-btn'),
+  studyTabPanes: document.querySelectorAll('.study-tab-pane'),
 
-  // Modal campos dinámicos
-  modalBookAbbr: document.getElementById('modal-book-abbr'),
-  modalBookTitle: document.getElementById('modal-book-title'),
-  modalBookSubname: document.getElementById('modal-book-subname'),
-  modalTags: document.getElementById('modal-tags'),
-  modalTestament: document.getElementById('modal-testament'),
-  modalCategory: document.getElementById('modal-category'),
-  modalSubcategory: document.getElementById('modal-subcategory'),
-  modalChapters: document.getElementById('modal-chapters'),
-  modalCanonStatus: document.getElementById('modal-canon-status'),
-  modalGenre: document.getElementById('modal-genre'),
-  modalSummary: document.getElementById('modal-summary'),
-  modalThemesList: document.getElementById('modal-themes-list'),
-  modalAuthor: document.getElementById('modal-author'),
-  modalDate: document.getElementById('modal-date'),
-  modalLocation: document.getElementById('modal-location'),
-  modalAudience: document.getElementById('modal-audience'),
-  modalHistoricalNote: document.getElementById('modal-historical-note'),
-  modalQuoteReference: document.getElementById('modal-quote-reference'),
-  modalQuoteText: document.getElementById('modal-quote-text'),
+  // Panel campos dinámicos
+  studyBookAbbr: document.getElementById('study-book-abbr'),
+  studyBookTitle: document.getElementById('study-book-title'),
+  studyBookSubname: document.getElementById('study-book-subname'),
+  studyPanelTags: document.getElementById('study-panel-tags'),
+  studyTestament: document.getElementById('study-testament'),
+  studyCategory: document.getElementById('study-category'),
+  studySubcategory: document.getElementById('study-subcategory'),
+  studyChapters: document.getElementById('study-chapters'),
+  studyCanonStatus: document.getElementById('study-canon-status'),
+  studyGenre: document.getElementById('study-genre'),
+  studySummary: document.getElementById('study-summary'),
+  studyThemesList: document.getElementById('study-themes-list'),
+  studyAuthor: document.getElementById('study-author'),
+  studyDate: document.getElementById('study-date'),
+  studyLocation: document.getElementById('study-location'),
+  studyAudience: document.getElementById('study-audience'),
+  studyHistoricalNote: document.getElementById('study-historical-note'),
+  studyQuoteReference: document.getElementById('study-quote-reference'),
+  studyQuoteText: document.getElementById('study-quote-text'),
 
   // Toast
   toastMessage: document.getElementById('toast-message'),
@@ -193,9 +193,10 @@ function renderBooks() {
 
   elements.booksGrid.innerHTML = filtered.map(book => {
     const accentColor = CATEGORY_COLORS[book.category] || 'var(--gold-primary)';
+    const isSelected = state.currentStudyBook && state.currentStudyBook.id === book.id;
 
     return `
-      <article class="book-card" data-book-id="${book.id}" style="--accent-bar: ${accentColor};" tabindex="0" role="button" aria-label="Abrir estudio de ${book.name}">
+      <article class="book-card ${isSelected ? 'active-card' : ''}" data-book-id="${book.id}" style="--accent-bar: ${accentColor};" tabindex="0" role="button" aria-label="Abrir estudio de ${book.name}">
         <div class="book-card-header">
           <span class="book-abbr-badge">${book.abbr}</span>
           <div class="book-tags">
@@ -226,7 +227,7 @@ function renderBooks() {
         </div>
 
         <div class="book-card-footer">
-          <span>Ver Estudio Completo</span>
+          <span>${isSelected ? '✓ Estudiando Ahora' : 'Ver Estudio Completo'}</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="5" y1="12" x2="19" y2="12"/>
             <polyline points="12 5 19 12 12 19"/>
@@ -236,12 +237,12 @@ function renderBooks() {
     `;
   }).join('');
 
-  // Asociar eventos de click y accesibilidad en tarjetas
+  // Asociar eventos de click y teclado en tarjetas
   elements.booksGrid.querySelectorAll('.book-card').forEach(card => {
     const bookId = card.dataset.bookId;
     const book = BIBLE_BOOKS.find(b => b.id === bookId);
 
-    const openAction = () => openBookModal(book);
+    const openAction = () => openBookStudy(book);
     card.addEventListener('click', openAction);
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -253,19 +254,19 @@ function renderBooks() {
 }
 
 /**
- * Abre y rellena el modal con la ficha completa del libro
+ * Abre y rellena el panel de estudio integrado en la página
  */
-function openBookModal(book) {
+function openBookStudy(book) {
   if (!book) return;
-  state.currentModalBook = book;
+  state.currentStudyBook = book;
 
   // Llenar campos principales
-  elements.modalBookAbbr.textContent = book.abbr;
-  elements.modalBookTitle.textContent = book.name;
-  elements.modalBookSubname.textContent = book.hebrewGreekName;
+  elements.studyBookAbbr.textContent = book.abbr;
+  elements.studyBookTitle.textContent = book.name;
+  elements.studyBookSubname.textContent = book.hebrewGreekName;
 
   // Badges dinámicos
-  elements.modalTags.innerHTML = `
+  elements.studyPanelTags.innerHTML = `
     <span class="badge" style="background: rgba(212, 175, 55, 0.15); color: var(--gold-light); border: 1px solid var(--border-focus);">${book.testament}</span>
     <span class="badge badge-category">${book.category}</span>
     ${book.isDeuterocanonical ? `<span class="badge badge-deuterocanonical">⭐ Deuterocanónico</span>` : ''}
@@ -273,61 +274,71 @@ function openBookModal(book) {
   `;
 
   // Ficha técnica
-  elements.modalTestament.textContent = book.testament;
-  elements.modalCategory.textContent = book.category;
-  elements.modalSubcategory.textContent = book.subCategory;
-  elements.modalChapters.textContent = `${book.chapters} capítulos`;
-  elements.modalCanonStatus.textContent = book.isDeuterocanonical ? 'Deuterocanónico (LXX / Concilio de Trento)' : 'Protocanónico';
-  elements.modalGenre.textContent = book.genre;
-  elements.modalSummary.textContent = book.summary;
+  elements.studyTestament.textContent = book.testament;
+  elements.studyCategory.textContent = book.category;
+  elements.studySubcategory.textContent = book.subCategory;
+  elements.studyChapters.textContent = `${book.chapters} capítulos`;
+  elements.studyCanonStatus.textContent = book.isDeuterocanonical ? 'Deuterocanónico (LXX / Concilio de Trento)' : 'Protocanónico';
+  elements.studyGenre.textContent = book.genre;
+  elements.studySummary.textContent = book.summary;
 
   // Lista de temas
-  elements.modalThemesList.innerHTML = (book.keyThemes || []).map(theme => `
+  elements.studyThemesList.innerHTML = (book.keyThemes || []).map(theme => `
     <span class="pill-btn" style="cursor: default; pointer-events: none;"># ${theme}</span>
   `).join('');
 
   // Contexto histórico y autoría
-  elements.modalAuthor.textContent = book.author;
-  elements.modalDate.textContent = book.date;
-  elements.modalLocation.textContent = book.location;
-  elements.modalAudience.textContent = book.audience;
+  elements.studyAuthor.textContent = book.author;
+  elements.studyDate.textContent = book.date;
+  elements.studyLocation.textContent = book.location;
+  elements.studyAudience.textContent = book.audience;
 
   // Teología BJ
-  elements.modalHistoricalNote.textContent = book.historicalNote;
+  elements.studyHistoricalNote.textContent = book.historicalNote;
 
   // Pasaje representativo
-  elements.modalQuoteReference.textContent = book.keyPassage.reference;
-  elements.modalQuoteText.textContent = `«${book.keyPassage.text}»`;
+  elements.studyQuoteReference.textContent = book.keyPassage.reference;
+  elements.studyQuoteText.textContent = `«${book.keyPassage.text}»`;
 
   // Reiniciar a la primera pestaña (Ficha Técnica)
-  switchModalTab('tab-specs');
+  switchStudyTab('tab-specs');
 
-  // Mostrar modal con transición y foco
-  elements.bookModal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  elements.modalCloseBtn.focus();
+  // Mostrar el panel integrado
+  elements.bookStudyPanel.style.display = 'block';
+
+  // Actualizar tarjetas en la grilla para marcar la activa
+  elements.booksGrid.querySelectorAll('.book-card').forEach(card => {
+    card.classList.toggle('active-card', card.dataset.bookId === book.id);
+  });
+
+  // Desplazar suavemente hacia el visor de estudio respetando el navbar
+  elements.bookStudyPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /**
- * Cierra el modal de detalle
+ * Cierra el panel de estudio integrado
  */
-function closeBookModal() {
-  elements.bookModal.classList.remove('open');
-  document.body.style.overflow = '';
-  state.currentModalBook = null;
+function closeBookStudy() {
+  elements.bookStudyPanel.style.display = 'none';
+  state.currentStudyBook = null;
+
+  // Remover marca de tarjeta activa
+  elements.booksGrid.querySelectorAll('.book-card').forEach(card => {
+    card.classList.remove('active-card');
+  });
 }
 
 /**
- * Alterna pestañas dentro del modal
+ * Alterna pestañas dentro del panel de estudio
  */
-function switchModalTab(targetTabId) {
-  elements.modalTabBtns.forEach(btn => {
-    const isActive = btn.dataset.modalTab === targetTabId;
+function switchStudyTab(targetTabId) {
+  elements.studyTabBtns.forEach(btn => {
+    const isActive = btn.dataset.studyTab === targetTabId;
     btn.classList.toggle('active', isActive);
   });
 
-  elements.modalTabPanes.forEach(pane => {
-    pane.classList.toggle('active', pane.id === `pane-${targetTabId}`);
+  elements.studyTabPanes.forEach(pane => {
+    pane.classList.toggle('active', pane.id === `pane-study-${targetTabId}`);
   });
 }
 
@@ -346,8 +357,8 @@ function showToast(text) {
  * Copia el contenido resumido del libro actual al portapapeles
  */
 async function copyCurrentBookData() {
-  if (!state.currentModalBook) return;
-  const b = state.currentModalBook;
+  if (!state.currentStudyBook) return;
+  const b = state.currentStudyBook;
 
   const clipboardText = `📖 FICHA BÍBLICA: ${b.name} (${b.abbr})
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -474,29 +485,15 @@ function setupEventListeners() {
   // 6. Botón de restablecer filtros
   elements.resetFiltersBtn.addEventListener('click', resetAllFilters);
 
-  // 7. Eventos de Modal
-  elements.modalCloseBtn.addEventListener('click', closeBookModal);
-  elements.modalCloseBottomBtn.addEventListener('click', closeBookModal);
-  elements.modalCopyBtn.addEventListener('click', copyCurrentBookData);
+  // 7. Eventos del Panel de Estudio Integrado
+  elements.studyCloseBtn.addEventListener('click', closeBookStudy);
+  elements.studyCloseBottomBtn.addEventListener('click', closeBookStudy);
+  elements.studyCopyBtn.addEventListener('click', copyCurrentBookData);
 
-  // Cerrar al hacer click fuera del contenedor del modal
-  elements.bookModal.addEventListener('click', (e) => {
-    if (e.target === elements.bookModal) {
-      closeBookModal();
-    }
-  });
-
-  // Cerrar modal con tecla Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && elements.bookModal.classList.contains('open')) {
-      closeBookModal();
-    }
-  });
-
-  // Pestañas del modal
-  elements.modalTabBtns.forEach(btn => {
+  // Pestañas del panel de estudio
+  elements.studyTabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      switchModalTab(btn.dataset.modalTab);
+      switchStudyTab(btn.dataset.studyTab);
     });
   });
 }
