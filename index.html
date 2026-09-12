@@ -190,6 +190,45 @@
             <span>📜 Profetas Menores (12)</span>
           </label>
         </div>
+
+        <!-- Banner Explicativo Dinámico de Categoría Canónica Seleccionada -->
+        <div class="category-explanation-banner" id="category-explanation-banner" style="display: none;" aria-live="polite">
+          <div class="cat-exp-header">
+            <div class="cat-exp-title-group">
+              <span class="cat-exp-icon" id="cat-exp-icon">📜</span>
+              <div>
+                <span class="cat-exp-badge" id="cat-exp-badge">Categoría Canónica</span>
+                <h3 class="cat-exp-title sacred-title" id="cat-exp-title">El Pentateuco</h3>
+              </div>
+            </div>
+            <button class="cat-exp-close-btn" id="cat-exp-close-btn" aria-label="Cerrar explicación de categoría" title="Ocultar explicación">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="cat-exp-body">
+            <div class="cat-exp-etymology-box" id="cat-exp-etymology-box">
+              <strong>Etimología y Significado:</strong> <span id="cat-exp-etymology">-</span>
+            </div>
+
+            <p class="cat-exp-description" id="cat-exp-description">-</p>
+
+            <div class="cat-exp-context-box" id="cat-exp-context-box">
+              <strong>Criterio de la Escuela Bíblica de Jerusalén:</strong>
+              <p id="cat-exp-context">-</p>
+            </div>
+
+            <div class="cat-exp-points-wrapper">
+              <span class="cat-exp-points-title">Ejes Teológicos y Libros Comprendidos:</span>
+              <ul class="cat-exp-points-list" id="cat-exp-points-list">
+                <!-- Puntos clave inyectados dinámicamente -->
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

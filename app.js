@@ -3,7 +3,20 @@
  * Lógica Reactiva, Búsqueda, Filtrado Avanzado y Panel de Estudio Integrado (Sin Modales)
  */
 
-import { BIBLE_BOOKS, BIBLE_STATS } from './data/bibleData.js';
+import { BIBLE_BOOKS, BIBLE_STATS, CATEGORY_INFO } from './data/bibleData.js';
+
+// Iconos por categoría
+const CATEGORY_ICONS = {
+  "Pentateuco": "📜",
+  "Históricos": "🏛️",
+  "Sapienciales": "🪶",
+  "Proféticos": "🔥",
+  "Evangelios": "📖",
+  "Históricos del NT": "🧭",
+  "Epístolas Paulinas": "✉️",
+  "Epístolas Católicas": "🌐",
+  "Apocalipsis": "☀️"
+};
 
 // Estado global de la aplicación
 const state = {
@@ -33,6 +46,17 @@ const elements = {
   themeToggleBtn: document.getElementById('theme-toggle-btn'),
   themeIconSun: document.getElementById('theme-icon-sun'),
   themeIconMoon: document.getElementById('theme-icon-moon'),
+
+  // Banner explicativo de categoría
+  categoryExplanationBanner: document.getElementById('category-explanation-banner'),
+  catExpIcon: document.getElementById('cat-exp-icon'),
+  catExpBadge: document.getElementById('cat-exp-badge'),
+  catExpTitle: document.getElementById('cat-exp-title'),
+  catExpEtymology: document.getElementById('cat-exp-etymology'),
+  catExpDescription: document.getElementById('cat-exp-description'),
+  catExpContext: document.getElementById('cat-exp-context'),
+  catExpPointsList: document.getElementById('cat-exp-points-list'),
+  catExpCloseBtn: document.getElementById('cat-exp-close-btn'),
 
   // Filtros especiales
   filterDeuterocanonical: document.getElementById('filter-deuterocanonical'),
@@ -415,6 +439,32 @@ function applyTheme(theme) {
 }
 
 /**
+ * Muestra el banner explicativo de la categoría canónica seleccionada
+ */
+function showCategoryExplanation(categoryName) {
+  if (!categoryName || categoryName === 'all' || !CATEGORY_INFO[categoryName]) {
+    elements.categoryExplanationBanner.style.display = 'none';
+    return;
+  }
+
+  const info = CATEGORY_INFO[categoryName];
+  const icon = CATEGORY_ICONS[categoryName] || '📜';
+
+  elements.catExpIcon.textContent = icon;
+  elements.catExpBadge.textContent = `${info.testament} • ${info.bookCount} Libros`;
+  elements.catExpTitle.textContent = info.title;
+  elements.catExpEtymology.textContent = info.etymology;
+  elements.catExpDescription.textContent = info.description;
+  elements.catExpContext.textContent = info.historicalContext;
+
+  elements.catExpPointsList.innerHTML = info.keyPoints.map(point => `
+    <li>${point}</li>
+  `).join('');
+
+  elements.categoryExplanationBanner.style.display = 'block';
+}
+
+/**
  * Enlaza los oyentes de eventos interactivos
  */
 function setupEventListeners() {
@@ -458,8 +508,14 @@ function setupEventListeners() {
       const cat = btn.dataset.category;
       state.selectedCategory = cat;
       elements.activeCategoryIndicator.textContent = cat === 'all' ? 'Todas' : cat;
+      showCategoryExplanation(cat);
       renderBooks();
     });
+  });
+
+  // Cerrar banner explicativo de categoría
+  elements.catExpCloseBtn.addEventListener('click', () => {
+    elements.categoryExplanationBanner.style.display = 'none';
   });
 
   // 4. Filtros especiales
@@ -526,6 +582,7 @@ function resetAllFilters() {
     b.classList.toggle('active', b.dataset.category === 'all');
   });
   elements.activeCategoryIndicator.textContent = 'Todas';
+  elements.categoryExplanationBanner.style.display = 'none';
 
   elements.filterDeuterocanonical.checked = false;
   elements.chipDeutWrapper.classList.remove('active');

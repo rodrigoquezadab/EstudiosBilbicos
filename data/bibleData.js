@@ -1816,3 +1816,147 @@ export const BIBLE_STATS = {
     { name: "Apocalipsis", testament: "Nuevo Testamento", count: 1, icon: "sun" }
   ]
 };
+
+// Explicaciones exegéticas y teológicas por categoría según la Biblia de Jerusalén
+export const CATEGORY_INFO = {
+  "Pentateuco": {
+    name: "Pentateuco",
+    title: "El Pentateuco (La Torá / La Ley)",
+    testament: "Antiguo Testamento",
+    bookCount: 5,
+    etymology: "Del griego πεντάτευχος (pentáteuchos): «cinco estuches o rollos». En hebreo תּוֹרָה (Torá): «instrucción, enseñanza o camino de vida».",
+    description: "Constituye el corazón y fundamento insustituible de la fe bíblica y de la historia de la salvación. Abarca desde los orígenes cósmicos del universo y la creación del hombre, la elección de los patriarcas (Abraham, Isaac y Jacob) y la gesta pascual del Éxodo liberando al pueblo de la esclavitud en Egipto, hasta la alianza irrevocable en el monte Sinaí y la peregrinación por el desierto a las puertas de la Tierra Prometida.",
+    historicalContext: "La Escuela Bíblica de Jerusalén destaca que el Pentateuco no fue redactado de un solo trazo por Moisés, sino que es el fruto maduro de cuatro grandes corrientes y tradiciones teológicas fundidas a lo largo de los siglos: la Tradición Yahvista (J, s. X a.C.), la Elohista (E, s. VIII a.C.), la Deuteronomista (D, s. VII a.C.) y la Sacerdotal (P, s. VI-V a.C. durante y tras el exilio en Babilonia).",
+    keyPoints: [
+      "Génesis: Orígenes cósmicos, caída, promesas divinas y sagas de los patriarcas.",
+      "Éxodo: La liberación pascual, revelación del Nombre YHWH y entrega del Decálogo en el Sinaí.",
+      "Levítico: La infinita santidad de Dios («Sed santos como Yo soy santo») y las normas del perdón.",
+      "Números: La prueba del desierto, las murmuraciones y la paciencia pedagógica de Dios.",
+      "Deuteronomio: El testamento solemne de Moisés llamando a amar a Dios con todo el corazón (Shemá)."
+    ]
+  },
+  "Históricos": {
+    name: "Históricos",
+    title: "Los Libros Históricos del Antiguo Testamento",
+    testament: "Antiguo Testamento",
+    bookCount: 16,
+    etymology: "Narraciones que abarcan más de ocho siglos de historia, desde el cruce del Jordán (s. XIII a.C.) hasta la resistencia judía frente a la helenización en el s. I a.C.",
+    description: "No pretenden ser una crónica aséptica en el sentido periodístico o científico moderno, sino una 'Historia Sagrada' o 'Teología de la Historia'. Israel reflexiona en ellos sobre sus triunfos, derrotas militares, la gloria de la monarquía davídica, el cisma de los reinos de Judá e Israel y el colapso del exilio babilónico, leyendo cada suceso a la luz de la fidelidad o infidelidad a la Alianza con Yahvé.",
+    historicalContext: "Abarca la monumental 'Historia Deuteronomista' (Josué, Jueces, 1-2 Samuel, 1-2 Reyes), la 'Obra del Cronista' (1-2 Crónicas, Esdras, Nehemías centradas en el Templo y el culto) y novelas edificantes de fe. En el canon católico incluye los valiosos libros deuterocanónicos de Tobías, Judit y 1-2 Macabeos conservados en la Septuaginta griega.",
+    keyPoints: [
+      "Conquista y asentamiento tribal en la tierra prometida con Josué y los Jueces.",
+      "Nacimiento del mesianismo real: el pacto eterno de Dios con la dinastía de David (2 S 7).",
+      "La caída de Samaría (722 a.C.) y de Jerusalén (587 a.C.) entendidas como juicio al pecado y a la idolatría.",
+      "Retorno y restauración de las murallas y del Segundo Templo con Esdras y Nehemías.",
+      "Firmeza heroica ante la persecución y fe en la resurrección corporal en 1 y 2 Macabeos."
+    ]
+  },
+  "Sapienciales": {
+    name: "Sapienciales",
+    title: "Los Libros Sapienciales y Poéticos",
+    testament: "Antiguo Testamento",
+    bookCount: 7,
+    etymology: "Del hebreo חָכְמָה (Jojmá) y del griego Σοφία (Sophía): la búsqueda humana y religiosa del arte de vivir rectamente, el sentido del dolor y la comunión con Dios.",
+    description: "Representan la maduración filosófica y espiritual de Israel. A diferencia de las leyes o relatos de reyes, los libros sapienciales exploran las preguntas universales de la condición humana: el enigma del sufrimiento inocente (Job), la oración y alabanza continua ante el Creador (Salmos), la prudencia moral cotidiana (Proverbios), la fugacidad de las riquezas terrenas (Qohélet), la santidad del amor conyugal (Cantar de los Cantares) y el destino eterno de los justos (Sabiduría y Sirácida).",
+    historicalContext: "La Biblia de Jerusalén resalta la asombrosa evolución teológica de este conjunto: desde la antigua moral de retribución terrena hasta la contemplación de la inmortalidad del alma y la personificación de la Sabiduría divina que asiste a Dios en la creación (Pr 8; Sab 7), preludio directo del prólogo joánico sobre el Verbo encarnado.",
+    keyPoints: [
+      "Job: Ruptura con las teorías simplistas sobre el dolor humano ante el misterio divino.",
+      "Salmos: El himnario sagrado y la escuela permanente de oración de Jesús y de la Iglesia.",
+      "Proverbios: Máximas de conducta recta fundadas en el «temor de Yahvé».",
+      "Qohélet (Eclesiastés): Crítica implacable a la ilusión mundana («vanidad de vanidades»).",
+      "Sabiduría y Eclesiástico: La glorificación de la sabiduría divina en diálogo con el mundo helenístico."
+    ]
+  },
+  "Proféticos": {
+    name: "Proféticos",
+    title: "Los Libros Proféticos (Mayores y Menores)",
+    testament: "Antiguo Testamento",
+    bookCount: 18,
+    etymology: "Del hebreo נָבִיא (Naví): «el llamado, el portavoz enviado por Dios». En griego προφήτης (prophētēs): «el que proclama la palabra divina en nombre de otro».",
+    description: "Los profetas bíblicos no son adivinos del porvenir, sino hombres inspirados por el Espíritu de Dios con una mirada penetrante sobre su tiempo. Denuncian con vehemencia el culto vacío sin justicia social, el olvido del huérfano y de la viuda, y llaman incansablemente a la conversión interior del corazón. En medio de las ruinas nacionales, mantienen viva la promesa de una Nueva Alianza y la venida del Mesías de paz.",
+    historicalContext: "La tradición católica divide este corpus en Profetas Mayores (Isaías, Jeremías, Lamentaciones, Baruc, Ezequiel y Daniel; denominados 'mayores' por la longitud de sus escritos) y los Doce Profetas Menores (Oseas hasta Malaquías). Incluye textos deuterocanónicos de alto relieve como Baruc y los capítulos griegos de Daniel.",
+    keyPoints: [
+      "Prioridad de la justicia: Dios rechaza los holocaustos si van acompañados de opresión al prójimo.",
+      "Isaías: Las profecías del Emmanuel, el niño prometido y los Cánticos del Siervo Sufriente.",
+      "Jeremías: La promesa de la «Nueva Alianza» grabada en el interior de los corazones (Jr 31).",
+      "Ezequiel: La sustitución del corazón de piedra por un corazón de carne mediante el Espíritu.",
+      "Los Doce Menores: Desde el amor nupcial de Oseas hasta el mensajero precursor en Malaquías."
+    ]
+  },
+  "Evangelios": {
+    name: "Evangelios",
+    title: "Los Cuatro Santos Evangelios",
+    testament: "Nuevo Testamento",
+    bookCount: 4,
+    etymology: "Del griego εὐαγγέλιον (euangélion): «Buena Noticia» o proclamación victoriosa de la salvación.",
+    description: "Constituyen la cumbre y el corazón de toda la Sagrada Escritura (Dei Verbum 18). Son el testimonio inspirado de la vida, predicación, signos milagrosos, pasión redentora, muerte en la cruz y resurrección gloriosa de Jesucristo, Hijo de Dios hecho hombre. Proclaman la misma fe pascual apostólica transmitida a través de cuatro retratos teológicos complementarios.",
+    historicalContext: "Se dividen en los tres Evangelios Sinópticos (Marcos: el más primitivo, centrado en el Secreto Mesiánico y la Cruz; Mateo: escrito para judeocristianos, mostrando a Jesús como el nuevo Moisés; Lucas: el evangelio de la misericordia, la ternura y los marginados) y el Evangelio de San Juan (escrito al final del siglo I, de naturaleza teológico-sacramental y contemplativa sobre el Verbo eterno encarnado).",
+    keyPoints: [
+      "La inauguración del Reino de Dios y el Sermón de las Bienaventuranzas.",
+      "El Secreto Mesiánico y la revelación del Hijo del Hombre servidor doliente.",
+      "El misterio pascual: Pasión, Muerte y Resurrección como redención universal del pecado.",
+      "La Eucaristía, el mandamiento nuevo del Amor fraterno y el envío misionero al mundo entero."
+    ]
+  },
+  "Históricos del NT": {
+    name: "Históricos del NT",
+    title: "Hechos de los Apóstoles (Historia de la Iglesia Primitiva)",
+    testament: "Nuevo Testamento",
+    bookCount: 1,
+    etymology: "En griego Πράξεις Ἀποστόλων (Práxeis Apostólōn). Segundo volumen del díptico redactado por San Lucas dirigido a Teófilo.",
+    description: "Narra con pulcritud y fervor teológico el nacimiento de la Iglesia en Pentecostés y la expansión impetuosa del Evangelio desde Jerusalén, pasando por Judea y Samaría, hasta alcanzar Roma, el corazón del Imperio. Muestra la vida de las primeras comunidades cristianas guiadas por Pedro y la fulgurante epopeya misionera de San Pablo.",
+    historicalContext: "Llamado con justicia por la Escuela de Jerusalén el 'Evangelio del Espíritu Santo', atestigua el paso de una pequeña comunidad en el Cenáculo a una Iglesia verdaderamente católica y universal, consagrada en el histórico Concilio de Jerusalén (año 49 d.C.) que liberó a los gentiles de la ley ritual judía.",
+    keyPoints: [
+      "Pentecostés: El Espíritu Santo desciende como fuego consagrando a los apóstoles como testigos.",
+      "El estilo de vida cristiano primitivo: comunión fraterna, fracción del pan (Eucaristía) y oración.",
+      "La conversión de San Pablo en el camino a Damasco y sus tres grandes viajes misioneros.",
+      "El Concilio de Jerusalén: confirmación de la salvación por la gracia de Cristo sin cargas de la antigua ley."
+    ]
+  },
+  "Epístolas Paulinas": {
+    name: "Epístolas Paulinas",
+    title: "El Corpus Epistolar Paulino (14 Cartas)",
+    testament: "Nuevo Testamento",
+    bookCount: 14,
+    etymology: "Cartas apostólicas dirigidas por San Pablo o formuladas en el seno de su escuela misionera a diversas comunidades y pastores.",
+    description: "Representa el corpus teológico dogmático más profundo e influyente del Nuevo Testamento. En él se despliega la doctrina de la justificación gratuita por la fe en Cristo independiente de las obras de la ley mosaica, la Iglesia concebida como Cuerpo Místico de Cristo, la filiación divina por el Espíritu Santo, la teología del sufrimiento apostólico y el sacerdocio eterno de Jesucristo según el orden de Melquisedec (Hebreos).",
+    historicalContext: "Agrupa las Grandes Cartas Doctrinales (Romanos, 1-2 Corintios, Gálatas), las Cartas de la Cautividad escritas desde prisión (Efesios, Filipenses, Colosenses, Filemón), las Cartas Escatológicas (1-2 Tesalonicenses, que son cronológicamente los escritos más antiguos del NT) y las Cartas Pastorales (1-2 Timoteo, Tito) esenciales para el ministerio y orden eclesiástico.",
+    keyPoints: [
+      "Justificación por la gracia mediante la fe: nadie se salva por méritos propios, sino por el don pascual de Cristo.",
+      "La Iglesia como Cuerpo de Cristo: unidad en la diversidad de carismas y ministerios.",
+      "El himno sublime a la Caridad en 1 Corintios 13 y el himno a la Kénosis en Filipenses 2.",
+      "La armadura de Dios, la libertad del cristiano frente a la servidumbre y el sacerdocio eterno de Cristo."
+    ]
+  },
+  "Epístolas Católicas": {
+    name: "Epístolas Católicas",
+    title: "Las Epístolas Católicas o Universales (7 Cartas)",
+    testament: "Nuevo Testamento",
+    bookCount: 7,
+    etymology: "Del griego καθολικός (katholikós): «universal o general». Se denominan así porque no están dirigidas a una comunidad local exclusiva sino a la Iglesia entera.",
+    description: "Siete escritos apostólicos puestos bajo la autoridad venerable de las columnas de la Iglesia: Santiago, Simón Pedro, Juan y Judas. Abordan los desafíos éticos, comunitarios y espirituales cotidianos: la necesidad de que la fe se verifique en las obras de misericordia, el aguante pacífico en medio de la persecución y marginación social, el rechazo al docetismo y la solemne confesión de que 'Dios es Amor' (1 Jn 4, 8).",
+    historicalContext: "Muestran la riqueza polifónica y la complementariedad de la Tradición Apostólica en el último tercio del siglo I, complementando el énfasis doctrinal paulino con una vivencia práctica, comunitaria y fraterna de la salvación.",
+    keyPoints: [
+      "Santiago: La fe auténtica es inseparable de las obras de misericordia hacia el necesitado.",
+      "1 y 2 Pedro: El pueblo de Dios como sacerdocio real y piedras vivas, llamados a dar razón de su esperanza.",
+      "1, 2 y 3 Juan: La confesión de la carne real de Cristo, el mandamiento supremo del amor y la comunión en la luz.",
+      "Judas: La defensa valiente de la fe entregada a los santos de una vez para siempre."
+    ]
+  },
+  "Apocalipsis": {
+    name: "Apocalipsis",
+    title: "El Apocalipsis de San Juan (La Revelación Escatológica)",
+    testament: "Nuevo Testamento",
+    bookCount: 1,
+    etymology: "Del griego ἀποκάλυψις (apokálypsis): «descorrer el velo, manifestación o revelación divina».",
+    description: "Es el único libro enteramente profético del Nuevo Testamento. Lejos de ser un manual de terrores futuros, es un majestuoso poema litúrgico de esperanza inquebrantable para los cristianos perseguidos por el absolutismo imperial de Roma. Revela que las fuerzas de la historia están en manos del Cordero degollado de pie (Jesucristo resucitado), vencedor definitivo de la Bestia, del Dragón y de la muerte.",
+    historicalContext: "Escrito por el apóstol Juan en su destierro en la isla de Patmos hacia el año 95 d.C. bajo la persecución de Domiciano. Mediante una profusión de símbolos numéricos (7, 12, 144.000), colores y visiones cósmicas, proclama el triunfo final del Reino de Dios y el descenso de la Jerusalén celestial como Esposa radiante.",
+    keyPoints: [
+      "Las cartas a las siete Iglesias de Asia Menor: Aliento pastoral a la fidelidad y perseverancia.",
+      "El trono celestial y el Cordero digno de abrir los sellos de la historia humana.",
+      "La caída de Babilonia (la Roma idolátrica y opresora) y el juicio soberano de Dios.",
+      "La Jerusalén Celeste: «Cielos nuevos y tierra nueva», donde Dios habitará con los hombres y enjugará toda lágrima."
+    ]
+  }
+};
+

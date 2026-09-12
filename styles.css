@@ -544,6 +544,165 @@ button {
   box-shadow: 0 0 8px var(--gold-primary);
 }
 
+/* ==========================================================================
+   BANNER EXPLICATIVO DE CATEGORÍA CANÓNICA
+   ========================================================================== */
+.category-explanation-banner {
+  margin-top: 1.25rem;
+  padding: 1.35rem 1.5rem;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(19, 27, 46, 0.95) 100%);
+  border: 1px solid var(--border-focus);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md), 0 0 18px rgba(212, 175, 55, 0.1);
+  animation: expSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+@keyframes expSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cat-exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cat-exp-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.cat-exp-icon {
+  font-size: 1.8rem;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid var(--border-focus);
+  flex-shrink: 0;
+}
+
+.cat-exp-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gold-primary);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.cat-exp-title {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.cat-exp-close-btn {
+  padding: 0.35rem;
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.cat-exp-close-btn:hover {
+  color: #fb7185;
+  border-color: rgba(251, 113, 133, 0.4);
+}
+
+.cat-exp-etymology-box {
+  background: var(--bg-surface);
+  border-left: 3px solid var(--gold-primary);
+  padding: 0.65rem 0.9rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.86rem;
+  color: var(--text-primary);
+  margin-bottom: 0.95rem;
+  line-height: 1.5;
+}
+
+.cat-exp-description {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.cat-exp-context-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.cat-exp-context-box strong {
+  color: var(--gold-light);
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cat-exp-points-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gold-primary);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.cat-exp-points-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.cat-exp-points-list li {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  position: relative;
+  padding-left: 1.25rem;
+  line-height: 1.5;
+}
+
+.cat-exp-points-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--gold-primary);
+  font-size: 0.75rem;
+}
+
+
+
 /* Barra de Resultados y Ordenamiento */
 .results-bar {
   display: flex;
