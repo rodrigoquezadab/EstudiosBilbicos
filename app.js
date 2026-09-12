@@ -47,16 +47,18 @@ const elements = {
   themeIconSun: document.getElementById('theme-icon-sun'),
   themeIconMoon: document.getElementById('theme-icon-moon'),
 
-  // Banner explicativo de categoría
+  // Desplegable explicativo de categoría
   categoryExplanationBanner: document.getElementById('category-explanation-banner'),
+  catExpToggleBtn: document.getElementById('cat-exp-toggle-btn'),
+  catExpToggleLabel: document.getElementById('cat-exp-toggle-label'),
   catExpIcon: document.getElementById('cat-exp-icon'),
   catExpBadge: document.getElementById('cat-exp-badge'),
   catExpTitle: document.getElementById('cat-exp-title'),
+  catExpBody: document.getElementById('cat-exp-body'),
   catExpEtymology: document.getElementById('cat-exp-etymology'),
   catExpDescription: document.getElementById('cat-exp-description'),
   catExpContext: document.getElementById('cat-exp-context'),
   catExpPointsList: document.getElementById('cat-exp-points-list'),
-  catExpCloseBtn: document.getElementById('cat-exp-close-btn'),
 
   // Filtros especiales
   filterDeuterocanonical: document.getElementById('filter-deuterocanonical'),
@@ -461,6 +463,12 @@ function showCategoryExplanation(categoryName) {
     <li>${point}</li>
   `).join('');
 
+  // Mantener cerrado por defecto mostrando solo el título
+  elements.catExpBody.style.display = 'none';
+  elements.categoryExplanationBanner.classList.remove('is-open');
+  elements.catExpToggleBtn.setAttribute('aria-expanded', 'false');
+  elements.catExpToggleLabel.textContent = 'Ver explicación';
+
   elements.categoryExplanationBanner.style.display = 'block';
 }
 
@@ -513,9 +521,20 @@ function setupEventListeners() {
     });
   });
 
-  // Cerrar banner explicativo de categoría
-  elements.catExpCloseBtn.addEventListener('click', () => {
-    elements.categoryExplanationBanner.style.display = 'none';
+  // Alternar apertura y cierre del desplegable explicativo de categoría
+  elements.catExpToggleBtn.addEventListener('click', () => {
+    const isCurrentlyOpen = elements.catExpBody.style.display === 'block';
+    if (isCurrentlyOpen) {
+      elements.catExpBody.style.display = 'none';
+      elements.categoryExplanationBanner.classList.remove('is-open');
+      elements.catExpToggleBtn.setAttribute('aria-expanded', 'false');
+      elements.catExpToggleLabel.textContent = 'Ver explicación';
+    } else {
+      elements.catExpBody.style.display = 'block';
+      elements.categoryExplanationBanner.classList.add('is-open');
+      elements.catExpToggleBtn.setAttribute('aria-expanded', 'true');
+      elements.catExpToggleLabel.textContent = 'Ocultar explicación';
+    }
   });
 
   // 4. Filtros especiales

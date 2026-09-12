@@ -545,52 +545,65 @@ button {
 }
 
 /* ==========================================================================
-   BANNER EXPLICATIVO DE CATEGORÍA CANÓNICA
+   DESPLEGABLE EXPLICATIVO DE CATEGORÍA CANÓNICA (ACORDEÓN)
    ========================================================================== */
-.category-explanation-banner {
+.category-explanation-accordion {
   margin-top: 1.25rem;
-  padding: 1.35rem 1.5rem;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(19, 27, 46, 0.95) 100%);
+  background: var(--bg-surface);
   border: 1px solid var(--border-focus);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md), 0 0 18px rgba(212, 175, 55, 0.1);
-  animation: expSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
   position: relative;
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+  animation: expSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes expSlideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.category-explanation-accordion.is-open {
+  box-shadow: var(--shadow-md), 0 0 18px rgba(212, 175, 55, 0.12);
 }
 
-.cat-exp-header {
+.cat-exp-header-btn {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  padding: 0.85rem 1.15rem;
+  background: rgba(212, 175, 55, 0.05);
+  border: none;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  text-align: left;
   gap: 1rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px solid var(--border-subtle);
+  transition: all var(--transition-fast);
+}
+
+.cat-exp-header-btn:hover {
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.category-explanation-accordion.is-open .cat-exp-header-btn {
+  border-bottom-color: var(--border-subtle);
+  background: rgba(212, 175, 55, 0.08);
 }
 
 .cat-exp-title-group {
   display: flex;
   align-items: center;
   gap: 0.85rem;
+  min-width: 0;
+}
+
+.cat-exp-titles {
+  min-width: 0;
 }
 
 .cat-exp-icon {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   border-radius: var(--radius-md);
   background: rgba(212, 175, 55, 0.12);
   border: 1px solid var(--border-focus);
@@ -598,36 +611,53 @@ button {
 }
 
 .cat-exp-badge {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--gold-primary);
   display: block;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.15rem;
 }
 
 .cat-exp-title {
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   color: var(--text-primary);
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.cat-exp-close-btn {
-  padding: 0.35rem;
-  border-radius: var(--radius-full);
-  color: var(--text-muted);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transition: all var(--transition-fast);
+@media (max-width: 600px) {
+  .cat-exp-title {
+    white-space: normal;
+  }
 }
 
-.cat-exp-close-btn:hover {
-  color: #fb7185;
-  border-color: rgba(251, 113, 133, 0.4);
+.cat-exp-toggle-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--gold-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.cat-exp-chevron {
+  transition: transform var(--transition-fast);
+  color: var(--gold-primary);
+}
+
+.category-explanation-accordion.is-open .cat-exp-chevron {
+  transform: rotate(180deg);
+}
+
+.cat-exp-body {
+  padding: 1.35rem 1.5rem;
+  animation: fadeIn 0.25s ease-in-out;
+  background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(13, 18, 29, 0.6) 100%);
 }
 
 .cat-exp-etymology-box {

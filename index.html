@@ -191,25 +191,26 @@
           </label>
         </div>
 
-        <!-- Banner Explicativo Dinámico de Categoría Canónica Seleccionada -->
-        <div class="category-explanation-banner" id="category-explanation-banner" style="display: none;" aria-live="polite">
-          <div class="cat-exp-header">
+        <!-- Desplegable Explicativo de Categoría Canónica Seleccionada -->
+        <div class="category-explanation-accordion" id="category-explanation-banner" style="display: none;" aria-live="polite">
+          <button type="button" class="cat-exp-header-btn" id="cat-exp-toggle-btn" aria-expanded="false" aria-controls="cat-exp-body">
             <div class="cat-exp-title-group">
               <span class="cat-exp-icon" id="cat-exp-icon">📜</span>
-              <div>
+              <div class="cat-exp-titles">
                 <span class="cat-exp-badge" id="cat-exp-badge">Categoría Canónica</span>
                 <h3 class="cat-exp-title sacred-title" id="cat-exp-title">El Pentateuco</h3>
               </div>
             </div>
-            <button class="cat-exp-close-btn" id="cat-exp-close-btn" aria-label="Cerrar explicación de categoría" title="Ocultar explicación">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
-            </button>
-          </div>
 
-          <div class="cat-exp-body">
+            <div class="cat-exp-toggle-indicator">
+              <span class="cat-exp-toggle-label" id="cat-exp-toggle-label">Ver explicación</span>
+              <svg class="cat-exp-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </button>
+
+          <div class="cat-exp-body" id="cat-exp-body" style="display: none;">
             <div class="cat-exp-etymology-box" id="cat-exp-etymology-box">
               <strong>Etimología y Significado:</strong> <span id="cat-exp-etymology">-</span>
             </div>
