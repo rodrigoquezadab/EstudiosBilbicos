@@ -220,8 +220,8 @@ function renderBooks() {
             <span class="meta-entry-label">Época</span>
             <span class="meta-entry-val" title="${book.date}">${book.date.split('(')[0].trim()}</span>
           </div>
-          <div class="meta-entry" style="grid-column: span 2;">
-            <span class="meta-entry-label">Género</span>
+          <div class="meta-entry meta-entry-genre">
+            <span class="meta-entry-label">Género Literario</span>
             <span class="meta-entry-val" title="${book.genre}">${book.genre}</span>
           </div>
         </div>
