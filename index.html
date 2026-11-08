@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portal interactivo de estudios bíblicos católicos basado en la prestigiosa Biblia de Jerusalén (École Biblique de Jérusalem). Explora los 73 libros canónicos con autoría, época, géneros y teología.">
-  <meta name="keywords" content="Biblia de Jerusalén, Biblia Católica, Canon Bíblico, Deuterocanónicos, Evangelios Sinópticos, Pentateuco, Escuela Bíblica de Jerusalén, Exégesis">
+  <meta name="description" content="Portal interactivo de estudios bíblicos: explora los 73 libros de la Biblia, aprende su orden y ubicación con guías de estudio y quizzes.">
+  <meta name="keywords" content="Biblia, Estudios Bíblicos, Canon Bíblico, Orden de los libros de la Biblia, Quiz bíblico, Antiguo Testamento, Nuevo Testamento, Evangelios">
   <meta name="author" content="Estudios Bíblicos Católicos">
   <meta name="theme-color" content="#07090e">
 
-  <title>Biblia de Jerusalén | Portal de Estudios Bíblicos Católicos (73 Libros)</title>
+  <title>Estudios Bíblicos | Explora y aprende los libros de la Biblia</title>
 
   <!-- Google Fonts: Cinzel para solemnidad sacra, Outfit para UI moderna e Inter para lectura -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,13 +16,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="courses.css">
+  <link rel="stylesheet" href="characters.css">
 </head>
 <body>
 
   <!-- Encabezado y Barra de Navegación -->
   <header class="site-header" id="main-header">
     <div class="container nav-inner">
-      <a href="#" class="brand-wrapper" aria-label="Inicio Biblia de Jerusalén">
+      <a href="./" class="brand-wrapper" id="brand-home-link" aria-label="Estudios Bíblicos — recargar inicio">
         <div class="brand-icon" aria-hidden="true">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
@@ -32,10 +34,25 @@
           </svg>
         </div>
         <div class="brand-text">
-          <h1>Biblia de Jerusalén</h1>
-          <span>Canon Católico Romano • 73 Libros</span>
+          <h1>Estudios Bíblicos</h1>
+          <span>Conoce la Sagrada Escritura</span>
         </div>
       </a>
+
+      <nav class="main-nav" aria-label="Secciones principales">
+        <a href="#/libros" class="main-nav-link" data-view-link="explorer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span>Libros</span>
+        </a>
+        <a href="#/cursos" class="main-nav-link" data-view-link="courses">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          <span>Cursos y guías</span>
+        </a>
+        <a href="#/personajes" class="main-nav-link" data-view-link="characters">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Personajes</span>
+        </a>
+      </nav>
 
       <div class="header-actions">
         <button id="theme-toggle-btn" class="icon-btn" aria-label="Cambiar tema claro u oscuro" title="Alternar tema de contraste">
@@ -55,7 +72,7 @@
           </svg>
         </button>
 
-        <a href="#canon-info" class="btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;">
+        <a href="#canon-info" class="btn-secondary header-canon-link" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
             <path d="M12 16v-4"/>
@@ -68,13 +85,15 @@
   </header>
 
   <main class="container">
+    <!-- ===================== VISTA: EXPLORADOR DE LIBROS ===================== -->
+    <div id="view-explorer" class="app-view">
     <!-- Portada / Presentación Hero -->
     <section class="hero-section">
       <div class="hero-badge">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
         </svg>
-        <span>Exégesis e Introducciones de la Escuela Bíblica de Jerusalén</span>
+        <span>Guía interactiva de la Sagrada Escritura</span>
       </div>
 
       <h2 class="hero-title">
@@ -82,7 +101,7 @@
       </h2>
 
       <p class="hero-subtitle">
-        Descubre quién escribió cada libro, en qué época y coordenadas geográficas, sus destinatarios primarios, género literario, capítulos y claves de lectura según el magisterio de la Biblia de Jerusalén.
+        Descubre quién escribió cada libro, en qué época y lugar, a quién iba dirigido, su género literario y sus claves de lectura. Y con los <a href="#/cursos" class="hero-inline-link">cursos y guías</a>, aprende a ubicar cada libro dentro de la Biblia.
       </p>
 
       <!-- Estadísticas Rápidas -->
@@ -218,7 +237,7 @@
             <p class="cat-exp-description" id="cat-exp-description">-</p>
 
             <div class="cat-exp-context-box" id="cat-exp-context-box">
-              <strong>Criterio de la Escuela Bíblica de Jerusalén:</strong>
+              <strong>Contexto exegético:</strong>
               <p id="cat-exp-context">-</p>
             </div>
 
@@ -286,7 +305,7 @@
       <nav class="study-tabs-nav" role="tablist">
         <button class="study-tab-btn active" data-study-tab="tab-specs">Ficha Canónica</button>
         <button class="study-tab-btn" data-study-tab="tab-history">Contexto & Autor</button>
-        <button class="study-tab-btn" data-study-tab="tab-theology">Teología BJ</button>
+        <button class="study-tab-btn" data-study-tab="tab-theology">Teología</button>
         <button class="study-tab-btn" data-study-tab="tab-passage">Pasaje Clave</button>
       </nav>
 
@@ -387,7 +406,7 @@
           <div class="info-card-block">
             <div class="info-block-header">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-              <span>Aporte Exegético y Teológico (BJ)</span>
+              <span>Aporte Exegético y Teológico</span>
             </div>
             <p class="prose-text" id="study-historical-note">-</p>
           </div>
@@ -407,7 +426,7 @@
             </div>
 
             <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.85rem;">
-              <em>Texto según la traducción canónica de la Biblia de Jerusalén en lengua española.</em>
+              <em>Cita tomada de la Biblia de Jerusalén (traducción española).</em>
             </p>
           </div>
         </div>
@@ -448,20 +467,20 @@
       </button>
     </div>
 
-    <!-- Sección Pedagógica sobre el Canon y la Biblia de Jerusalén -->
+    <!-- Sección Pedagógica sobre el Canon -->
     <section class="educational-section" id="canon-info">
       <div class="section-heading">
-        <span class="hero-badge">Fundamentos de la Edición</span>
-        <h2 class="sacred-title">El Canon Católico y la Escuela Bíblica de Jerusalén</h2>
-        <p>Aclaraciones históricas, filológicas y doctrinales sobre cómo se compuso y fijó la Biblia Católica.</p>
+        <span class="hero-badge">Fundamentos</span>
+        <h2 class="sacred-title">El Canon Bíblico</h2>
+        <p>Cómo está organizada la Biblia y cómo se fijó la lista de sus libros en las distintas tradiciones.</p>
       </div>
 
       <div class="edu-grid">
         <article class="edu-card">
           <div class="edu-card-icon" aria-hidden="true">🏛️</div>
-          <h3 class="sacred-title">La École Biblique de Jérusalem</h3>
+          <h3 class="sacred-title">¿Cómo se organiza la Biblia?</h3>
           <p>
-            Fundada en 1890 por el fraile dominico Marie-Joseph Lagrange en Jerusalén, la Escuela Bíblica aunó la fe católica con el método histórico-crítico, la arqueología del Cercano Oriente y el estudio exhaustivo de los manuscritos antiguos, dando origen a la célebre <em>Bible de Jérusalem</em>.
+            La Biblia no es un solo libro, sino una biblioteca. El Antiguo Testamento agrupa la Ley (Pentateuco), los libros Históricos, los Sapienciales y los Proféticos; el Nuevo Testamento, los Evangelios, Hechos, las Cartas y el Apocalipsis. Conocer estos bloques permite ubicar cualquier libro en segundos.
           </p>
         </article>
 
@@ -497,7 +516,7 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>Canon Católico Romano</strong><br><small style="color: var(--gold-primary);">Biblia de Jerusalén / Vulgata</small></td>
+                <td><strong>Canon Católico Romano</strong><br><small style="color: var(--gold-primary);">Vulgata / Biblias católicas</small></td>
                 <td><strong>46 libros</strong><br><small>(Incluye 7 deuterocanónicos de la LXX)</small></td>
                 <td><strong>27 libros</strong></td>
                 <td><strong style="color: var(--gold-primary); font-size: 1.1rem;">73</strong></td>
@@ -522,6 +541,18 @@
         </div>
       </div>
     </section>
+    </div>
+    <!-- ===================== FIN VISTA: EXPLORADOR ===================== -->
+
+    <!-- ===================== VISTA: CURSOS Y GUÍAS ===================== -->
+    <section id="view-courses" class="app-view courses-view" hidden aria-live="polite">
+      <!-- Se inyecta dinámicamente con courses.js -->
+    </section>
+
+    <!-- ===================== VISTA: PERSONAJES ===================== -->
+    <section id="view-characters" class="app-view courses-view" hidden aria-live="polite">
+      <!-- Se inyecta dinámicamente con characters.js -->
+    </section>
   </main>
 
   <!-- Notificación Toast Flotante -->
@@ -536,12 +567,14 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <h4 class="sacred-title">Biblia de Jerusalén • Estudio Católico</h4>
-        <p>Portal desarrollado para la formación bíblica y teológica conforme a las introducciones y notas de la Escuela Bíblica de Jerusalén.</p>
+        <h4 class="sacred-title">Estudios Bíblicos</h4>
+        <p>Portal de formación bíblica: explora los libros de la Sagrada Escritura y aprende a ubicarlos con guías y quizzes.</p>
       </div>
       <div class="footer-links">
         <a href="#main-header">Volver Arriba ↑</a>
         <a href="#canon-info">Canon de los 73 Libros</a>
+        <a href="#/cursos">Cursos y guías</a>
+        <a href="#/personajes">Personajes</a>
       </div>
     </div>
   </footer>

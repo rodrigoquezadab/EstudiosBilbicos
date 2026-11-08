@@ -1,12 +1,19 @@
-# 📖 Portal de Estudios Bíblicos Católicos — Biblia de Jerusalén
+# 📖 Estudios Bíblicos — Explora y aprende los libros de la Biblia
 
 ![Canon Católico](https://img.shields.io/badge/Canon-73%20Libros%20Cat%C3%B3licos-d4af37?style=for-the-badge)
-![Biblia de Jerusalén](https://img.shields.io/badge/Fuente-Biblia%20de%20Jerusal%C3%A9n-1e293b?style=for-the-badge)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3%20Vanilla-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript ES6+](https://img.shields.io/badge/JavaScript-ES6%2B%20Modules-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Dark Mode First](https://img.shields.io/badge/UI-Dark%20Mode%20First-8b5cf6?style=for-the-badge)
 ![Licencia](https://img.shields.io/badge/Licencia-MIT-10b981?style=for-the-badge)
+
+---
+
+## ✨ Secciones
+
+- **Libros**: explorador de los 73 libros con búsqueda, filtros y ficha de estudio.
+- **Cursos y guías** (`#/cursos`): guías visuales y quizzes para aprender el orden del Antiguo Testamento, de los Evangelios y Nuevo Testamento, y el mapa de toda la Biblia. Nuevos cursos se agregan en `data/courses.js`.
+- **Personajes** (`#/personajes`): línea de tiempo por épocas, diccionario A–Z (incluye personajes de parábolas) y ficha con árbol familiar, línea de ascendencia, maestros, discípulos, amigos, lugares y fechas estimadas. Datos en `data/characters.js`.
 
 ---
 

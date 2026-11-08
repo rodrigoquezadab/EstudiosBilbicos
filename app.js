@@ -1,9 +1,11 @@
 /**
- * PORTAL DE ESTUDIOS BÍBLICOS - BIBLIA DE JERUSALÉN
+ * PORTAL DE ESTUDIOS BÍBLICOS
  * Lógica Reactiva, Búsqueda, Filtrado Avanzado y Panel de Estudio Integrado (Sin Modales)
  */
 
 import { BIBLE_BOOKS, BIBLE_STATS, CATEGORY_INFO } from './data/bibleData.js';
+import { initCourses, renderCoursesRoute } from './courses.js';
+import { initCharacters, renderCharactersRoute } from './characters.js';
 
 // Iconos por categoría
 const CATEGORY_ICONS = {
@@ -348,6 +350,11 @@ function closeBookStudy() {
   elements.bookStudyPanel.style.display = 'none';
   state.currentStudyBook = null;
 
+  // Si se abrió desde un enlace #/libro/<id>, limpiar la ruta para poder reabrirlo
+  if (location.hash.startsWith('#/libro/')) {
+    history.replaceState(null, '', '#/libros');
+  }
+
   // Remover marca de tarjeta activa
   elements.booksGrid.querySelectorAll('.book-card').forEach(card => {
     card.classList.remove('active-card');
@@ -397,13 +404,13 @@ async function copyCurrentBookData() {
 • Destinatarios: ${b.audience}
 • Género Literario: ${b.genre}
 
-📜 SÍNTESIS TEOLÓGICA (Biblia de Jerusalén):
+📜 SÍNTESIS TEOLÓGICA:
 ${b.summary}
 
 ✨ PASAJE CLAVE (${b.keyPassage.reference}):
 «${b.keyPassage.text}»
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Fuente: Biblia de Jerusalén (École Biblique de Jérusalem)`;
+Fuente: Estudios Bíblicos`;
 
   try {
     await navigator.clipboard.writeText(clipboardText);
@@ -622,11 +629,82 @@ function resetAllFilters() {
 /**
  * Inicialización de la aplicación
  */
+/**
+ * Enrutador por hash: alterna entre el explorador de libros y los cursos
+ *   #/libros, #canon-info, ...   → explorador
+ *   #/libro/<id>                 → explorador con la ficha del libro abierta
+ *   #/cursos/...                 → cursos y guías
+ */
+const views = {
+  explorer: document.getElementById('view-explorer'),
+  courses: document.getElementById('view-courses'),
+  characters: document.getElementById('view-characters')
+};
+
+function showView(name) {
+  Object.entries(views).forEach(([key, el]) => { el.hidden = key !== name; });
+  document.querySelectorAll('[data-view-link]').forEach(link => {
+    const active = link.dataset.viewLink === name;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+}
+
+function handleRoute() {
+  const hash = decodeURIComponent(location.hash || '');
+
+  if (hash.startsWith('#/cursos')) {
+    showView('courses');
+    renderCoursesRoute(hash.slice(2).split('/').filter(Boolean));
+    window.scrollTo({ top: 0 });
+    return;
+  }
+
+  if (hash.startsWith('#/personajes')) {
+    showView('characters');
+    renderCharactersRoute(hash.slice(2).split('/').filter(Boolean));
+    window.scrollTo({ top: 0 });
+    return;
+  }
+
+  showView('explorer');
+
+  if (hash.startsWith('#/libro/')) {
+    const book = BIBLE_BOOKS.find(b => b.id === hash.slice('#/libro/'.length));
+    if (book) openBookStudy(book);
+    return;
+  }
+  if (hash === '#/libros') {
+    window.scrollTo({ top: 0 });
+    return;
+  }
+  if (hash && !hash.startsWith('#/')) {
+    const target = document.getElementById(hash.slice(1));
+    if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth' }));
+  }
+}
+
+function setupRouting() {
+  initCourses(views.courses);
+  initCharacters(views.characters);
+  window.addEventListener('hashchange', handleRoute);
+
+  // Logo y nombre: recargan el sitio completo
+  document.getElementById('brand-home-link').addEventListener('click', e => {
+    e.preventDefault();
+    window.location.assign(window.location.pathname + window.location.search);
+  });
+
+  handleRoute();
+}
+
 function init() {
   initTheme();
   setupEventListeners();
   renderBooks();
-  console.log(`Biblia de Jerusalén: ${BIBLE_STATS.totalBooks} libros cargados exitosamente.`);
+  setupRouting();
+  console.log(`Estudios Bíblicos: ${BIBLE_STATS.totalBooks} libros cargados exitosamente.`);
 }
 
 document.addEventListener('DOMContentLoaded', init);

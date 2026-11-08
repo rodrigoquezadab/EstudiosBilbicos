@@ -1,0 +1,569 @@
+/* ==========================================================================
+   PERSONAJES BÍBLICOS: línea de tiempo, diccionario y árbol de vínculos
+   ========================================================================== */
+
+.people-toolbar {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.people-search { margin: 0; }
+.people-tabs { margin-bottom: 0.5rem; }
+
+.people-count {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0.5rem 0 0.25rem;
+}
+
+.people-disclaimer {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.people-empty-note {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+/* ---------- Etiquetas ---------- */
+.person-tag {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0.05rem 0.45rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.person-tag--parable { background: color-mix(in srgb, var(--emerald-accent) 18%, transparent); color: var(--emerald-accent); }
+.person-tag--tradition { background: color-mix(in srgb, var(--purple-accent) 18%, transparent); color: var(--purple-accent); }
+
+/* ---------- Línea de tiempo ---------- */
+.era-timeline {
+  position: relative;
+  display: grid;
+  gap: 1.75rem;
+  margin-top: 1.25rem;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--border-subtle);
+}
+
+.era-block { position: relative; }
+
+.era-block::before {
+  content: '';
+  position: absolute;
+  left: calc(-1.1rem - 7px);
+  top: 0.9rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--era-color);
+  box-shadow: 0 0 0 4px var(--bg-primary);
+}
+
+.era-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.era-icon { font-size: 1.5rem; }
+.era-head h3 { font-size: 1.15rem; line-height: 1.2; }
+
+.era-range {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.era-count {
+  margin-left: auto;
+  min-width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--era-color) 18%, transparent);
+  color: var(--era-color);
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.person-grid {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) { .person-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .person-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.person-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-glass-card);
+  border: 1px solid var(--border-card);
+  border-left: 3px solid var(--era-color);
+  text-decoration: none;
+  color: var(--text-primary);
+  min-width: 0;
+  transition: all var(--transition-fast);
+}
+
+.person-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--era-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.person-avatar {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--era-color) 20%, var(--bg-surface));
+  color: var(--era-color);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.person-avatar--lg {
+  width: 72px;
+  height: 72px;
+  font-size: 1.5rem;
+}
+
+.person-card-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.person-card-name {
+  font-weight: 700;
+  font-size: 0.97rem;
+  line-height: 1.25;
+}
+
+.person-card-role {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.person-card-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.person-card-era { font-size: 1.05rem; opacity: 0.8; }
+
+/* ---------- Diccionario ---------- */
+.dict-letters {
+  position: sticky;
+  top: 118px;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+}
+
+@media (min-width: 860px) { .dict-letters { top: 80px; } }
+
+.dict-letters a {
+  min-width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.dict-letters a:hover { background: var(--gold-glow); color: var(--gold-primary); }
+
+.dict-section {
+  scroll-margin-top: 190px;
+  margin-top: 1.5rem;
+}
+
+.dict-letter {
+  font-size: 1.6rem;
+  color: var(--gold-primary);
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.dict-list { display: grid; }
+
+.dict-entry {
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+
+.dict-entry dt a {
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.dict-entry dt a:hover { color: var(--gold-primary); }
+
+.dict-entry dd {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-top: 0.15rem;
+}
+
+.dict-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.dict-ref { font-style: italic; }
+
+.dict-summary {
+  font-family: var(--font-reading);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ---------- Ficha ---------- */
+.person-header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin: 0.75rem 0 1rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--era-color) 14%, transparent), transparent 70%), var(--bg-glass-card);
+  border: 1px solid var(--border-card);
+}
+
+.person-header-era {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--era-color);
+}
+
+.person-header h2 {
+  font-size: clamp(1.35rem, 2.5vw + 0.6rem, 2rem);
+  line-height: 1.2;
+  margin: 0.15rem 0;
+}
+
+.person-header-role {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.person-header-summary {
+  margin-top: 0.5rem;
+  font-family: var(--font-reading);
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+@media (max-width: 520px) {
+  .person-header { flex-direction: column; }
+}
+
+.person-facts {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) { .person-facts { grid-template-columns: repeat(2, 1fr); } }
+
+.person-book-link {
+  display: inline-block;
+  margin: 0.15rem 0.25rem 0.15rem 0;
+  padding: 0.1rem 0.55rem;
+  border-radius: var(--radius-full);
+  background: var(--gold-glow);
+  color: var(--gold-primary);
+  font-size: 0.82rem;
+  text-decoration: none;
+}
+
+.person-book-link:hover { text-decoration: underline; }
+
+/* Escala de tiempo */
+.era-scale { padding: 1.9rem 0.5rem 0.5rem; }
+
+.era-scale-track {
+  position: relative;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--cat-pentateuco), var(--cat-historicos) 45%, var(--cat-profeticos) 70%, var(--cat-evangelios) 96%);
+  opacity: 0.85;
+}
+
+.era-scale-marker {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 4px solid var(--era-color);
+  transform: translate(-50%, -50%);
+  box-shadow: var(--shadow-sm);
+}
+
+.era-scale-marker-label {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.era-scale-ticks {
+  position: relative;
+  height: 1.4rem;
+  margin-top: 0.4rem;
+}
+
+.era-scale-ticks span {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.era-scale-ticks span:first-child { transform: none; }
+
+/* Árbol familiar */
+.family-tree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tree-tier {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0 1.4rem;
+}
+
+/* Línea vertical que conecta cada nivel con el siguiente */
+.tree-tier:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0.15rem;
+  left: 50%;
+  width: 2px;
+  height: 1.1rem;
+  background: var(--border-focus);
+}
+
+.tree-tier:last-child { padding-bottom: 0.5rem; }
+
+.tree-tier-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.tree-tier-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tree-tier--center {
+  padding-top: 0.75rem;
+  padding-bottom: 1.4rem;
+}
+
+.tree-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 120px;
+  max-width: 220px;
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-top: 3px solid var(--era-color);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+a.tree-node:hover {
+  transform: translateY(-2px);
+  border-color: var(--era-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.tree-node-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--era-color);
+}
+
+.tree-node-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.tree-node-note {
+  margin-top: 0.15rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+.tree-node--self {
+  min-width: 170px;
+  padding: 0.8rem 1.1rem;
+  background: color-mix(in srgb, var(--era-color) 16%, var(--bg-surface));
+  border: 2px solid var(--era-color);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--era-color) 30%, transparent);
+}
+
+.tree-node--self .tree-node-name { font-size: 1.1rem; font-family: var(--font-serif); }
+
+.tree-spouse-link {
+  font-size: 1.2rem;
+  color: var(--gold-primary);
+}
+
+.tree-siblings {
+  margin-top: 0.85rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tree-siblings .tree-node { min-width: 100px; padding: 0.35rem 0.65rem; }
+
+/* Línea de ascendencia */
+.lineage-chain {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.3rem;
+}
+
+.lineage-chain li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.lineage-step {
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-bottom: 2px solid var(--era-color, var(--gold-primary));
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+a.lineage-step:hover { border-color: var(--era-color); }
+
+.lineage-step--self {
+  background: var(--gold-glow);
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+}
+
+.lineage-arrow {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Vínculos no familiares */
+.bond-groups {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 860px) { .bond-groups { grid-template-columns: repeat(2, 1fr); } }
+
+.bond-group {
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-glass-card);
+  border: 1px solid var(--border-card);
+}
+
+.bond-group h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.65rem;
+}
+
+.bond-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tree-node--bond {
+  align-items: flex-start;
+  text-align: left;
+  min-width: 0;
+  flex: 1 1 180px;
+  max-width: none;
+}
