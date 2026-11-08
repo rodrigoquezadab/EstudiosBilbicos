@@ -948,3 +948,88 @@ a.course-card:hover {
   justify-content: center;
   gap: 0.6rem;
 }
+
+/* ---------- Mapa interactivo de la portada: bloque seleccionado ---------- */
+.bible-map.has-selection .bible-map-seg:not(.is-selected) { opacity: 0.4; }
+.bible-map.has-selection .bible-map-seg:not(.is-selected):hover { opacity: 0.8; }
+
+.bible-map-seg.is-selected {
+  background: color-mix(in srgb, var(--seg-color) 45%, transparent);
+  box-shadow: 0 0 0 2px var(--seg-color), 0 6px 18px color-mix(in srgb, var(--seg-color) 35%, transparent);
+  transform: translateY(-2px);
+}
+
+/* ---------- Introducción del bloque ---------- */
+.block-intro {
+  scroll-margin-top: 140px;
+  margin-top: 1rem;
+  padding: 1.35rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--group-color) 10%, transparent), transparent 45%), var(--bg-glass-card);
+  border: 1px solid var(--border-card);
+  border-top: 4px solid var(--group-color);
+  display: grid;
+  gap: 1rem;
+  animation: quizFadeIn 0.3s ease;
+}
+
+.block-intro-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.block-intro-kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--group-color);
+}
+
+.block-intro-head h3 {
+  font-size: clamp(1.25rem, 2vw + 0.6rem, 1.7rem);
+  line-height: 1.25;
+  margin-top: 0.2rem;
+}
+
+.block-intro-head .study-panel-close-btn { flex-shrink: 0; }
+
+.block-intro .cat-exp-description {
+  font-family: var(--font-reading);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.block-intro-subnote {
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--group-color);
+  background: var(--bg-surface);
+  font-size: 0.9rem;
+}
+
+.block-intro-mnemonic { margin-bottom: 0; }
+
+.block-intro-books-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.block-intro-books-head h4 { font-size: 1.1rem; }
+.block-intro-books-head .btn-secondary { text-decoration: none; }
+
+.block-intro-books { margin: 0; }
+a.book-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+
+@media (max-width: 520px) {
+  .block-intro { padding: 1rem; }
+  .block-intro-head .study-panel-close-btn span { display: none; }
+}

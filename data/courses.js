@@ -11,6 +11,7 @@
 const AT_GROUPS = [
   {
     id: 'pentateuco',
+    category: 'Pentateuco',
     name: 'Pentateuco',
     testament: 'AT',
     color: 'var(--cat-pentateuco)',
@@ -23,6 +24,7 @@ const AT_GROUPS = [
   },
   {
     id: 'historicos',
+    category: 'Históricos',
     name: 'Libros Históricos',
     testament: 'AT',
     color: 'var(--cat-historicos)',
@@ -39,6 +41,7 @@ const AT_GROUPS = [
   },
   {
     id: 'sapienciales',
+    category: 'Sapienciales',
     name: 'Libros Sapienciales',
     testament: 'AT',
     color: 'var(--cat-sapienciales)',
@@ -51,6 +54,7 @@ const AT_GROUPS = [
   },
   {
     id: 'profetas-mayores',
+    category: 'Proféticos',
     name: 'Profetas Mayores',
     testament: 'AT',
     color: 'var(--cat-profeticos)',
@@ -63,6 +67,7 @@ const AT_GROUPS = [
   },
   {
     id: 'profetas-menores',
+    category: 'Proféticos',
     name: 'Profetas Menores',
     testament: 'AT',
     color: 'var(--cat-menores)',
@@ -81,6 +86,7 @@ const AT_GROUPS = [
 const NT_GROUPS = [
   {
     id: 'evangelios',
+    category: 'Evangelios',
     name: 'Evangelios',
     testament: 'NT',
     color: 'var(--cat-evangelios)',
@@ -94,6 +100,7 @@ const NT_GROUPS = [
   },
   {
     id: 'hechos',
+    category: 'Históricos del NT',
     name: 'Hechos',
     testament: 'NT',
     color: 'var(--blue-accent)',
@@ -106,6 +113,7 @@ const NT_GROUPS = [
   },
   {
     id: 'paulinas',
+    category: 'Epístolas Paulinas',
     name: 'Cartas de San Pablo',
     testament: 'NT',
     color: 'var(--cat-paulinas)',
@@ -120,6 +128,7 @@ const NT_GROUPS = [
   },
   {
     id: 'catolicas',
+    category: 'Epístolas Católicas',
     name: 'Cartas Católicas',
     testament: 'NT',
     color: 'var(--cat-catolicas)',
@@ -132,6 +141,7 @@ const NT_GROUPS = [
   },
   {
     id: 'apocalipsis',
+    category: 'Apocalipsis',
     name: 'Apocalipsis',
     testament: 'NT',
     color: 'var(--cat-apocalipsis)',

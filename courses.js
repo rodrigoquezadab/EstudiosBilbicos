@@ -10,7 +10,7 @@
  *   #/cursos/<curso>/practica/<act>   → quiz en curso
  */
 
-import { BIBLE_BOOKS } from './data/bibleData.js';
+import { BIBLE_BOOKS, CATEGORY_INFO } from './data/bibleData.js';
 import { COURSES, ACTIVITIES, UPCOMING_COURSES } from './data/courses.js';
 
 const STORAGE_KEY = 'estudios-biblicos:progreso';
@@ -261,17 +261,18 @@ function buildQuestions(model, activityId) {
 let root = null;
 let session = null;
 let guideHidden = false;
+let hubGroupId = null; // bloque seleccionado en el mapa de la portada
 
 // ------------------------------------------------------------------
 // Componentes de interfaz
 // ------------------------------------------------------------------
-function renderMap(groups, { compact = false } = {}) {
+function renderMap(groups, { compact = false, selectedId = null } = {}) {
   const byTestament = ['AT', 'NT']
     .map(t => ({ t, groups: groups.filter(g => g.testament === t) }))
     .filter(x => x.groups.length);
 
   return `
-    <div class="bible-map ${compact ? 'bible-map--compact' : ''}">
+    <div class="bible-map ${compact ? 'bible-map--compact' : ''} ${selectedId ? 'has-selection' : ''}">
       ${byTestament.map(({ t, groups: gs }) => {
         const total = gs.reduce((s, g) => s + g.count, 0);
         return `
@@ -282,7 +283,8 @@ function renderMap(groups, { compact = false } = {}) {
             </div>
             <div class="bible-map-bar" role="list">
               ${gs.map(g => `
-                <a class="bible-map-seg" role="listitem" href="#group-${esc(g.id)}" data-group-link="${esc(g.id)}"
+                <a class="bible-map-seg ${g.id === selectedId ? 'is-selected' : ''}" role="listitem" href="#group-${esc(g.id)}" data-group-link="${esc(g.id)}"
+                   ${g.id === selectedId ? 'aria-current="true"' : ''}
                    style="--seg-color:${g.color}; flex-grow:${g.count};"
                    title="${esc(g.name)} · ${g.count} libro${g.count > 1 ? 's' : ''}">
                   <span class="bible-map-seg-name">${esc(g.name)}</span>
@@ -308,9 +310,10 @@ function renderHub() {
     <section class="courses-block">
       <div class="courses-block-head">
         <h3 class="sacred-title">Así está organizada la Biblia</h3>
-        <p>Cada color es un bloque de libros. El ancho indica cuántos libros contiene.</p>
+        <p>Cada color es un bloque de libros y el ancho indica cuántos contiene. <strong>Toca un bloque</strong> para leer su introducción y ver solo sus libros.</p>
       </div>
-      <div class="course-surface">${renderMap(fullModel.groups, { compact: true })}</div>
+      <div class="course-surface" id="hub-map">${renderMap(fullModel.groups, { compact: true, selectedId: hubGroupId })}</div>
+      <div id="hub-group-panel"></div>
     </section>
 
     <section class="courses-block">
@@ -361,6 +364,128 @@ function renderHub() {
           </div>`).join('')}
       </div>
     </section>`;
+
+  bindHubMap(fullModel);
+  renderHubGroupPanel(fullModel, false);
+}
+
+/** El mapa de la portada abre la introducción del bloque en lugar de saltar a la guía. */
+function bindHubMap(fullModel) {
+  root.querySelectorAll('#hub-map [data-group-link]').forEach(seg => {
+    seg.addEventListener('click', e => {
+      e.preventDefault();
+      const id = seg.dataset.groupLink;
+      hubGroupId = hubGroupId === id ? null : id;
+      root.querySelector('#hub-map').innerHTML = renderMap(fullModel.groups, { compact: true, selectedId: hubGroupId });
+      bindHubMap(fullModel);
+      renderHubGroupPanel(fullModel, true);
+    });
+  });
+}
+
+/** Curso (AT / NT) que estudia el bloque en detalle. */
+function courseForGroup(groupId) {
+  return [...MODELS.values()].find(m => m.id !== 'mapa-biblia-completa' && m.groups.some(g => g.id === groupId));
+}
+
+function bookCard(book, color) {
+  return `
+    <a class="book-card" href="#/libro/${book.id}" style="--accent-bar:${color};" aria-label="Abrir estudio de ${esc(book.name)}">
+      <div class="book-card-header">
+        <span class="book-abbr-badge">${esc(book.abbr)}</span>
+        <div class="book-tags">
+          ${book.isDeuterocanonical ? '<span class="badge badge-deuterocanonical">⭐ Deuterocanónico</span>' : ''}
+          ${book.isSynoptic ? '<span class="badge badge-synoptic">📖 Sinóptico</span>' : ''}
+          <span class="badge badge-category">${esc(book.category)}</span>
+        </div>
+      </div>
+      <h3 class="book-title sacred-title">${esc(book.name)}</h3>
+      <p class="book-subname">${esc(book.hebrewGreekName)}</p>
+      <p class="book-summary">${esc(book.summary)}</p>
+      <div class="book-meta-grid">
+        <div class="meta-entry">
+          <span class="meta-entry-label">Capítulos</span>
+          <span class="meta-entry-val">${book.chapters} caps.</span>
+        </div>
+        <div class="meta-entry">
+          <span class="meta-entry-label">Época</span>
+          <span class="meta-entry-val" title="${esc(book.date)}">${esc(book.date.split('(')[0].trim())}</span>
+        </div>
+        <div class="meta-entry meta-entry-genre">
+          <span class="meta-entry-label">Género Literario</span>
+          <span class="meta-entry-val" title="${esc(book.genre)}">${esc(book.genre)}</span>
+        </div>
+      </div>
+      <div class="book-card-footer">
+        <span>Ver Estudio Completo</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>`;
+}
+
+function renderHubGroupPanel(fullModel, scroll) {
+  const panel = root.querySelector('#hub-group-panel');
+  const group = hubGroupId && fullModel.groups.find(g => g.id === hubGroupId);
+  if (!group) {
+    panel.innerHTML = '';
+    return;
+  }
+
+  const info = CATEGORY_INFO[group.category];
+  const entries = fullModel.seq.filter(e => e.group.id === group.id);
+  const course = courseForGroup(group.id);
+  const testament = group.testament === 'AT' ? 'Antiguo Testamento' : 'Nuevo Testamento';
+  // Para los profetas, la introducción cubre ambos grupos: se aclara cuál es este
+  const sharedNote = (group.id === 'profetas-mayores' || group.id === 'profetas-menores')
+    ? `<p class="block-intro-subnote">Estás viendo los <strong>${esc(group.name)}</strong>: ${esc(group.tip)}</p>`
+    : '';
+
+  panel.innerHTML = `
+    <article class="block-intro" style="--group-color:${group.color}" aria-live="polite">
+      <header class="block-intro-head">
+        <div>
+          <span class="block-intro-kicker">${testament} · ${group.count > 1 ? `libros ${group.start}–${group.end}` : `libro ${group.start}`} de ${fullModel.total}</span>
+          <h3 class="sacred-title">${esc(info?.title || group.name)}</h3>
+        </div>
+        <button type="button" class="study-panel-close-btn" id="block-intro-close" aria-label="Cerrar explicación del bloque">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <span>Cerrar</span>
+        </button>
+      </header>
+
+      ${info ? `
+        <div class="cat-exp-etymology-box"><strong>Etimología y significado:</strong> ${esc(info.etymology)}</div>
+        <p class="cat-exp-description">${esc(info.description)}</p>
+        ${sharedNote}
+        <div class="cat-exp-context-box">
+          <strong>Contexto exegético:</strong>
+          <p>${esc(info.historicalContext)}</p>
+        </div>
+        <div class="cat-exp-points-wrapper">
+          <span class="cat-exp-points-title">Ejes teológicos:</span>
+          <ul class="cat-exp-points-list">${info.keyPoints.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
+        </div>` : sharedNote}
+
+      <div class="guide-mnemonic block-intro-mnemonic"><span aria-hidden="true">💡</span><p><strong>Para recordarlo:</strong> ${esc(group.mnemonic)}</p></div>
+
+      <div class="block-intro-books-head">
+        <h4 class="sacred-title">${group.count === 1 ? 'El libro de este bloque' : `Los ${group.count} libros de este bloque`}</h4>
+        ${course ? `<a class="btn-secondary" href="#/cursos/${course.id}">📘 Estudiar su orden en «${esc(course.shortTitle)}»</a>` : ''}
+      </div>
+      <div class="books-grid block-intro-books">
+        ${entries.map(e => bookCard(e.book, group.color)).join('')}
+      </div>
+    </article>`;
+
+  panel.querySelector('#block-intro-close').addEventListener('click', () => {
+    hubGroupId = null;
+    root.querySelector('#hub-map').innerHTML = renderMap(fullModel.groups, { compact: true });
+    bindHubMap(fullModel);
+    panel.innerHTML = '';
+    root.querySelector('#hub-map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  if (scroll) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function renderCourseHeader(model, tab) {
