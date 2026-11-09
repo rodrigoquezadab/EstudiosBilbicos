@@ -10,8 +10,8 @@
  *   #/cursos/<curso>/practica/<act>   → quiz en curso
  */
 
-import { BIBLE_BOOKS, CATEGORY_INFO } from './data/bibleData.js';
-import { COURSES, ACTIVITIES, UPCOMING_COURSES } from './data/courses.js';
+(function () {
+  'use strict';
 
 const STORAGE_KEY = 'estudios-biblicos:progreso';
 const MASTERY = 80; // % para considerar dominada una actividad
@@ -37,7 +37,7 @@ function esc(str) {
 }
 
 /** Nombre corto y reconocible para quizzes ("San Mateo" → "Mateo"). */
-export function shortName(book) {
+function shortName(book) {
   return book.name
     .replace(/^San /, '')
     .replace(/ de San Juan$/, '')
@@ -885,7 +885,7 @@ function handleKeydown(e) {
 // ------------------------------------------------------------------
 // API pública
 // ------------------------------------------------------------------
-export function initCourses(container) {
+function initCourses(container) {
   root = container;
   document.addEventListener('keydown', handleKeydown);
 }
@@ -894,7 +894,7 @@ export function initCourses(container) {
  * Renderiza la vista según las partes de la ruta, p. ej.
  * ['cursos'] | ['cursos', id] | ['cursos', id, 'practica'] | ['cursos', id, 'practica', act]
  */
-export function renderCoursesRoute(parts) {
+function renderCoursesRoute(parts) {
   const [, courseId, section, activityId] = parts;
   const model = courseId && MODELS.get(courseId);
 
@@ -911,3 +911,6 @@ export function renderCoursesRoute(parts) {
   if (section === 'practica') renderPractice(model);
   else renderGuide(model);
 }
+
+  window.EBCourses = { initCourses, renderCoursesRoute, shortName };
+})();

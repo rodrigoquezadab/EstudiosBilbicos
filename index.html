@@ -580,6 +580,12 @@
   </footer>
 
   <!-- Script Principal de la Aplicación -->
-  <script type="module" src="app.js"></script>
+  <!-- Scripts clásicos (sin módulos) para que la app funcione también abriendo index.html directamente -->
+  <script defer src="data/bibleData.js"></script>
+  <script defer src="data/courses.js"></script>
+  <script defer src="data/characters.js"></script>
+  <script defer src="courses.js"></script>
+  <script defer src="characters.js"></script>
+  <script defer src="app.js"></script>
 </body>
 </html>

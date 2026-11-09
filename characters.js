@@ -7,8 +7,8 @@
  *   #/personajes/<id>          → ficha del personaje (árbol familiar + vínculos)
  */
 
-import { BIBLE_BOOKS } from './data/bibleData.js';
-import { CHARACTERS, RELATIONS, ERAS } from './data/characters.js';
+(function () {
+  'use strict';
 
 const BOOK_BY_ID = new Map(BIBLE_BOOKS.map(b => [b.id, b]));
 const ERA_BY_ID = new Map(ERAS.map(e => [e.id, e]));
@@ -474,13 +474,16 @@ function renderEraScale(person) {
 // ------------------------------------------------------------------
 // API pública
 // ------------------------------------------------------------------
-export function initCharacters(container) {
+function initCharacters(container) {
   root = container;
 }
 
-export function renderCharactersRoute(parts) {
+function renderCharactersRoute(parts) {
   const [, sub] = parts;
   if (!sub) renderShell('timeline');
   else if (sub === 'diccionario') renderShell('dictionary');
   else renderPerson(sub);
 }
+
+  window.EBCharacters = { initCharacters, renderCharactersRoute };
+})();

@@ -3,7 +3,7 @@
  * 73 Libros: 46 Antiguo Testamento (incluye 7 Deuterocanónicos) + 27 Nuevo Testamento
  */
 
-export const BIBLE_BOOKS = [
+const BIBLE_BOOKS = [
   // ==========================================
   // ANTIGUO TESTAMENTO - PENTATEUCO (5 libros)
   // ==========================================
@@ -1798,7 +1798,7 @@ export const BIBLE_BOOKS = [
 ];
 
 // Metadatos globales y estadísticas
-export const BIBLE_STATS = {
+const BIBLE_STATS = {
   totalBooks: 73,
   oldTestamentCount: 46,
   newTestamentCount: 27,
@@ -1818,7 +1818,7 @@ export const BIBLE_STATS = {
 };
 
 // Explicaciones exegéticas y teológicas por categoría según la Biblia de Jerusalén
-export const CATEGORY_INFO = {
+const CATEGORY_INFO = {
   "Pentateuco": {
     name: "Pentateuco",
     title: "El Pentateuco (La Torá / La Ley)",

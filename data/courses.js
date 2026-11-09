@@ -155,7 +155,7 @@ const NT_GROUPS = [
 ];
 
 // ---------- Catálogo de actividades ----------
-export const ACTIVITIES = {
+const ACTIVITIES = {
   next: {
     title: '¿Qué libro sigue?',
     description: 'Elige el libro que viene justo después (o justo antes) de otro.',
@@ -195,7 +195,7 @@ export const ACTIVITIES = {
 };
 
 // ---------- Cursos ----------
-export const COURSES = [
+const COURSES = [
   {
     id: 'orden-antiguo-testamento',
     icon: '📜',
@@ -238,7 +238,7 @@ export const COURSES = [
 ];
 
 // ---------- Próximamente ----------
-export const UPCOMING_COURSES = [
+const UPCOMING_COURSES = [
   { icon: '👥', title: 'Quiz de personajes', description: '¿Quién fue hijo, discípulo o amigo de quién? Pon a prueba lo aprendido en la sección Personajes.' },
   { icon: '🧭', title: 'Geografía bíblica', description: 'Lugares clave de la historia de la salvación y los viajes de San Pablo.' },
   { icon: '🌾', title: 'Las parábolas de Jesús', description: 'Encuentra cada parábola en su Evangelio y descubre su enseñanza.' }

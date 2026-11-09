@@ -3,7 +3,7 @@
 ![Canon Católico](https://img.shields.io/badge/Canon-73%20Libros%20Cat%C3%B3licos-d4af37?style=for-the-badge)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3%20Vanilla-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript ES6+](https://img.shields.io/badge/JavaScript-ES6%2B%20Modules-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![JavaScript ES6+](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Dark Mode First](https://img.shields.io/badge/UI-Dark%20Mode%20First-8b5cf6?style=for-the-badge)
 ![Licencia](https://img.shields.io/badge/Licencia-MIT-10b981?style=for-the-badge)
 
@@ -105,17 +105,24 @@ A diferencia de catálogos bíblicos genéricos, esta plataforma analiza exhaust
 
 ## 🚀 Guía de Uso e Instalación Local
 
-La aplicación está construida con estándares web puros (**Vanilla HTML5, CSS3 y JavaScript ES6 Modules**), sin requerir compiladores, dependencias pesadas de Node ni bundlers externos.
+La aplicación está construida con estándares web puros (**Vanilla HTML5, CSS3 y JavaScript**), sin requerir compiladores, dependencias pesadas de Node ni bundlers externos.
 
 ### Ejecución Directa en el Navegador
 
 1. Clona o descarga este repositorio:
    ```bash
-   git clone https://github.com/usuario/biblia-jerusalen.git
-   cd biblia-jerusalen
+   git clone https://github.com/rodrigoquezadab/EstudiosBilbicos.git
+   cd EstudiosBilbicos
    ```
 
-2. Dado que utiliza módulos nativos de JavaScript (`type="module"`), se recomienda abrirlo a través de cualquier servidor web local simple:
+2. Abre `index.html` con doble clic: funciona directamente desde el disco, porque los scripts se cargan como scripts clásicos (sin `type="module"`, que el navegador bloquea en `file://`).
+
+3. Opcionalmente, sírvelo con un servidor local (incluido `server.js`):
+
+   ```bash
+   node server.js
+   ```
+   Luego abre `http://localhost:4173`.
 
    **Con VS Code:**
    - Instala la extensión **Live Server** y haz clic en *«Go Live»* sobre `index.html`.

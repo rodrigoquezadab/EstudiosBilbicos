@@ -3,9 +3,11 @@
  * Lógica Reactiva, Búsqueda, Filtrado Avanzado y Panel de Estudio Integrado (Sin Modales)
  */
 
-import { BIBLE_BOOKS, BIBLE_STATS, CATEGORY_INFO } from './data/bibleData.js';
-import { initCourses, renderCoursesRoute } from './courses.js';
-import { initCharacters, renderCharactersRoute } from './characters.js';
+(function () {
+  'use strict';
+
+  const { initCourses, renderCoursesRoute } = window.EBCourses;
+  const { initCharacters, renderCharactersRoute } = window.EBCharacters;
 
 // Iconos por categoría
 const CATEGORY_ICONS = {
@@ -708,3 +710,4 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+})();
