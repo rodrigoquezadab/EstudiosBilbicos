@@ -186,6 +186,12 @@ const ACTIVITIES = {
     icon: '🔢',
     questions: 5
   },
+  count: {
+    title: '¿Cuántos libros tiene?',
+    description: 'Aprende cuántos libros componen cada parte de la Biblia: bloques, Testamentos y la Biblia completa.',
+    icon: '🧮',
+    questions: 10
+  },
   exam: {
     title: 'Examen mixto',
     description: 'Mezcla de todas las actividades. Ideal para comprobar lo aprendido.',
@@ -207,7 +213,7 @@ const COURSES = [
     intro: 'El Antiguo Testamento católico tiene 46 libros. En lugar de memorizarlos uno por uno, apréndelos por bloques: Ley, Historia, Sabiduría y Profetas. Si sabes en qué bloque está un libro, sabrás más o menos en qué parte de la Biblia buscarlo.',
     note: 'Las Biblias protestantes tienen 39 libros en el AT: no incluyen Tobías, Judit, 1-2 Macabeos, Sabiduría, Eclesiástico ni Baruc (los deuterocanónicos).',
     groups: AT_GROUPS,
-    activities: ['next', 'section', 'first', 'order', 'exam']
+    activities: ['next', 'section', 'first', 'order', 'count', 'exam']
   },
   {
     id: 'orden-nuevo-testamento',
@@ -220,7 +226,7 @@ const COURSES = [
     intro: 'El Nuevo Testamento tiene 27 libros y su orden es muy lógico: primero la vida de Jesús (Evangelios), luego la Iglesia naciente (Hechos), después las Cartas que guiaron a las comunidades y, al final, el Apocalipsis.',
     note: 'El orden del Nuevo Testamento es el mismo en las Biblias católicas, protestantes y ortodoxas.',
     groups: NT_GROUPS,
-    activities: ['next', 'section', 'first', 'order', 'exam']
+    activities: ['next', 'section', 'first', 'order', 'count', 'exam']
   },
   {
     id: 'mapa-biblia-completa',
@@ -233,7 +239,7 @@ const COURSES = [
     intro: 'Cuando ya conozcas cada Testamento por separado, practica con la Biblia completa: 73 libros en 10 bloques. El objetivo es que, al escuchar el nombre de un libro, sepas al instante si está al principio, al medio o al final.',
     note: 'Recomendado después de completar los cursos del Antiguo y del Nuevo Testamento.',
     groups: [...AT_GROUPS, ...NT_GROUPS],
-    activities: ['testament', 'section', 'first', 'next', 'exam']
+    activities: ['count', 'testament', 'section', 'first', 'next', 'exam']
   }
 ];
 

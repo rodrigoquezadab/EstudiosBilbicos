@@ -137,6 +137,49 @@ function choiceQuestion({ type, prompt, correct, distractors, explanation, revie
   };
 }
 
+/** Lista de "partes" de la Biblia con su cantidad de libros, para la actividad de conteo. */
+function countFacts(model) {
+  const names = es => es.map(e => esc(shortName(e.book)));
+  const listOf = entries => (entries.length <= 7
+    ? names(entries).join(', ')
+    : `de ${names(entries)[0]} a ${names(entries)[entries.length - 1]}`);
+
+  const facts = model.groups.map(g => {
+    const entries = model.seq.filter(e => e.group === g);
+    return {
+      key: g.id,
+      label: g.name,
+      phrase: `el bloque <strong>${esc(g.name)}</strong>`,
+      count: entries.length,
+      detail: listOf(entries)
+    };
+  });
+
+  const byTestament = t => model.seq.filter(e => e.group.testament === t);
+  const at = byTestament('AT');
+  const nt = byTestament('NT');
+  const summary = t => model.groups.filter(g => g.testament === t).map(g => `${g.count} ${esc(g.name)}`).join(' + ');
+
+  if (at.length) facts.push({ key: 'AT', label: 'Antiguo Testamento', phrase: 'el <strong>Antiguo Testamento</strong>', count: at.length, detail: summary('AT') });
+  if (nt.length) facts.push({ key: 'NT', label: 'Nuevo Testamento', phrase: 'el <strong>Nuevo Testamento</strong>', count: nt.length, detail: summary('NT') });
+  if (at.length && nt.length) {
+    facts.push({ key: 'all', label: 'Biblia completa', phrase: 'la <strong>Biblia completa</strong> (canon católico)', count: at.length + nt.length, detail: `${at.length} del Antiguo Testamento + ${nt.length} del Nuevo Testamento` });
+  }
+
+  const mayores = model.groups.find(g => g.id === 'profetas-mayores');
+  const menores = model.groups.find(g => g.id === 'profetas-menores');
+  if (mayores && menores) {
+    facts.push({ key: 'profeticos', label: 'Libros Proféticos', phrase: 'los <strong>Libros Proféticos</strong> en total', count: mayores.count + menores.count, detail: `${mayores.count} Profetas Mayores + ${menores.count} Profetas Menores` });
+  }
+  // Los 7 libros deuterocanónicos completos (Ester y Daniel solo tienen *adiciones* deuterocanónicas)
+  const DEUTERO_IDS = ['tobias', 'judit', '1-macabeos', '2-macabeos', 'sabiduria', 'eclesiastico', 'baruc'];
+  const deutero = model.seq.filter(e => DEUTERO_IDS.includes(e.book.id));
+  if (deutero.length === DEUTERO_IDS.length) {
+    facts.push({ key: 'deutero', label: 'Deuterocanónicos', phrase: 'los libros <strong>deuterocanónicos</strong>', count: deutero.length, detail: `${names(deutero).join(', ')} (además, Ester y Daniel tienen partes deuterocanónicas)` });
+  }
+  return facts;
+}
+
 const GENERATORS = {
   next(model, used) {
     const before = Math.random() < 0.3;
@@ -203,6 +246,35 @@ const GENERATORS = {
       explanation: `${bookLabel(earlier)} es el n.º ${earlier.pos} y ${bookLabel(later)} el n.º ${later.pos}.${groupNote}`,
       review: `${shortName(earlier.book)} va antes que ${shortName(later.book)}`
     });
+  },
+
+  count(model, used) {
+    const facts = countFacts(model);
+    const fresh = facts.filter(f => !used.has(`count:${f.key}`));
+    const fact = (fresh.length ? fresh : facts)[rand((fresh.length ? fresh : facts).length)];
+    used.add(`count:${fact.key}`);
+
+    // Distractores: números cercanos y cantidades de otras partes (más engañosos)
+    const n = fact.count;
+    const near = [n - 2, n - 1, n + 1, n + 2, n + 3].filter(x => x > 0 && x !== n);
+    const others = facts.map(f => f.count).filter(x => x !== n && !near.includes(x));
+    const pool = [...shuffle(near).slice(0, 2), ...shuffle(others).slice(0, 1)];
+    const extra = shuffle(near.filter(x => !pool.includes(x)));
+    while (pool.length < 3 && extra.length) pool.push(extra.pop());
+
+    const question = choiceQuestion({
+      type: 'count',
+      prompt: `¿Cuántos libros componen ${fact.phrase}?`,
+      correct: { label: String(n) },
+      distractors: [...new Set(pool)].slice(0, 3).map(x => ({ label: String(x) })),
+      explanation: `${fact.phrase.charAt(0).toUpperCase() + fact.phrase.slice(1)}: <strong>${n}</strong> ${n === 1 ? 'libro' : 'libros'} — ${fact.detail}.`,
+      review: `${fact.label} → ${n}`
+    });
+    // Opciones numéricas de menor a mayor
+    question.options.sort((a, b) => Number(a) - Number(b));
+    question.optionSubs = question.options.map(() => '');
+    question.correctIndex = question.options.indexOf(String(n));
+    return question;
   },
 
   testament(model, used) {
@@ -312,6 +384,14 @@ function renderHub() {
         <h3 class="sacred-title">Así está organizada la Biblia</h3>
         <p>Cada color es un bloque de libros y el ancho indica cuántos contiene. <strong>Toca un bloque</strong> para leer su introducción y ver solo sus libros.</p>
       </div>
+      <a class="count-quiz-cta" href="#/cursos/mapa-biblia-completa/practica/count">
+        <span class="count-quiz-cta-icon" aria-hidden="true">🧮</span>
+        <span class="count-quiz-cta-text">
+          <strong>Quiz: ¿cuántos libros tiene cada parte?</strong>
+          <span>Pentateuco, Históricos, Profetas, Evangelios, Cartas, cada Testamento y la Biblia completa.</span>
+        </span>
+        <span class="count-quiz-cta-go" aria-hidden="true">Empezar →</span>
+      </a>
       <div class="course-surface" id="hub-map">${renderMap(fullModel.groups, { compact: true, selectedId: hubGroupId })}</div>
       <div id="hub-group-panel"></div>
     </section>

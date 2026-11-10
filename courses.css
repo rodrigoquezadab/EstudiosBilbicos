@@ -1033,3 +1033,48 @@ a.book-card { text-decoration: none; color: inherit; display: flex; flex-directi
   .block-intro { padding: 1rem; }
   .block-intro-head .study-panel-close-btn span { display: none; }
 }
+
+/* ---------- Acceso al quiz de conteo (portada de cursos) ---------- */
+.count-quiz-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(120deg, var(--gold-glow), transparent 70%), var(--bg-glass-card);
+  border: 1px solid var(--border-focus);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.count-quiz-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+.count-quiz-cta-icon { font-size: 1.8rem; flex-shrink: 0; }
+
+.count-quiz-cta-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.count-quiz-cta-text span {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.count-quiz-cta-go {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--gold-primary);
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .count-quiz-cta-go { display: none; }
+}
